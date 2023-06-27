@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group-Chat</title>
+    <link rel="stylesheet" href="./style/index.css">
+</head>
+<body>
+    <nav>
+        <h1>Group-Chat</h1>
+        <ul>
+            <li class="username"></li>
+            <li class="logout">Logout</li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="left">
+            <div class="channels">
+                <button id="createRoom">Create Room</button>
+                <div class="roomsList">
+                </div>
+            </div>
+            <div class="users">
+                <h1>Users</h1>
+                <div class="usersList">
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="chatContainer">
+            </div>
+                <form>
+                    <input type="text" placeholder="Enter" id="inputField">
+                    <input type="submit" value="Send">
+                </form>
+        </div>
+    </div>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+    <script src="./script/index.js"></script>
+</body>
+</html>

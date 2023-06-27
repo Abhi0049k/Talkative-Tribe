@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+*{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    padding: 0;
+}
+nav{
+    display: flex;
+    background-color: #070734;
+    color: white;
+    height: 56px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav h1{
+    font-size: 32px;
+    font-weight: 400;
+    margin: 0px 14px;
+}
+
+nav ul{
+    display: flex;
+    list-style: none;
+}
+
+nav ul li{
+    font-size: 28px;
+    margin: 0px 12px;
+    padding: 6px;
+}
+
+
+nav ul li.logout:hover{
+    cursor: pointer;
+    color: #070734;
+    border-radius: 8px;
+    background-color: ghostwhite;
+}
+
+.container{
+    display: flex;
+    height: 91vh;
+    /* border: 1px solid black; */
+    margin: 6px;
+    gap: 4px;
+}
+
+.container .left{
+    width: 25%;
+    /* border: 1px solid black; */
+    border-radius: 8px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .left .channels{
+    max-height: 50%;
+}
+
+.container .left .channels button{
+    background-color: #070734;
+    cursor: pointer;
+    color: white;
+    width: 100%;
+    font-size: 24px;
+    border: none;
+    height: 42px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.container .left .channels .roomsList{
+    height: 88.5%;
+    overflow-y: auto;
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.container .left .channels .roomsList::-webkit-scrollbar {
+    width: 8px;
+}
+
+.container .left .channels .roomsList::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.container .left .channels .roomsList::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 4px;
+}
+
+.container .left .channels .roomsList::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.container .left .channels .roomsList p{
+    margin: 8px 12px;
+    min-height: 48px;
+    max-height: 48px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.container .left .users{
+    max-height: 50%;
+}
+
+.container .left .users h1{
+    background-color: #070734;
+    color: white;
+    width: 100%;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 42px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+.container .left .users .usersList{
+    height: 88.5%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .left .users .usersList::-webkit-scrollbar {
+    width: 8px;
+}
+
+.container .left .users .usersList::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.container .left .users .usersList::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 4px;
+}
+
+.container .left .users .usersList::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.container .left .users .usersList p{
+    margin: 8px 12px;
+    min-height: 48px;
+    max-height: 48px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.container .right{
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.container .right .chatContainer{
+    height: 92%;
+    border: 1px solid black;
+    width: 94%;
+    border-radius: 8px;
+    margin: auto;
+    padding: 23px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.container .right .chatContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+.container .right .chatContainer::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.container .right .chatContainer::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 8px;
+}
+
+.container .right .chatContainer::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+
+.container .right .chatContainer .welcomeMsg{
+    background-color: rgb(136, 136, 136, 0.4);
+    padding: 10px;
+    font-weight: bolder;
+    font-size: 26px;
+    border-radius: 4px;
+}
+
+.container .right .chatContainer .parentDistParent{
+    display: flex;
+    justify-content: start;
+    max-width: 60%;
+}
+
+.container .right .chatContainer .parentDistParent .distParent{
+    background-color: rgba(7, 7, 52, 0.3);
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.container .right .chatContainer .parentDistParent .distParent span{
+    font-weight: 400;
+}
+
+.container .right .chatContainer .parentDistParent .distParent .dist{
+    font-weight: bolder;
+    font-size: 26px;
+}
+
+.container .right .chatContainer .myParent{
+    display: flex;
+    justify-content: end;
+}
+
+.container .right .chatContainer .myParent .my{
+    border-radius: 4px;
+    padding: 10px;
+    background-color: rgba(0, 255, 0, 0.3);
+    font-weight: bolder;
+    font-size: 26px;
+}
+
+.container .right form {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+
+.container .right form input{
+    outline: none;
+    font-size: 24px;
+    border-radius: 8px;
+    border: none;
+}
+
+.container .right form input[type='text']{
+    width: 87%;
+    padding-left: 14px;
+    height: 42px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.container .right form input[type='text']:focus{
+    border-color: #4c9ed9;
+  box-shadow: 2px 2px 5px rgb(76, 158, 217);
+}
+
+.container .right form input[type='submit']{
+    height: 42px;
+    width: 10%;
+    background-color: rgb(13, 110, 253);
+    color: white;
+    font-weight: 400;
+}
+
+.container .right form input[type='submit']:hover{
+    cursor: pointer;
+    background-color: #1c61c8;
+}
