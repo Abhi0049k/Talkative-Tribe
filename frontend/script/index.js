@@ -16,7 +16,7 @@ let activeRoom = '';
 let prevRoom = '';
 
 if (!token) {
-    window.location.href = '/Frontend/signin.html';
+    window.location.href = 'https://cute-croissant-2a6b2d.netlify.app/signin.html';
 }
 else {
     const socket = io(`${baseServerUrl}`, { transports: ['websocket'], auth: { token } });
@@ -76,7 +76,7 @@ else {
 
     const distMessage = (el, user) => {
         let str = `<div class="parentDistParent">
-            <div class="distParent"><span>From ${user.name.split(' ')[0]}</span><p class="dist">${el.msg}</p></div>
+            <div class="distParent"><span>From ...</span><p class="dist">${el.msg}</p></div>
         </div>
         `;
         return str;
@@ -136,7 +136,7 @@ else {
         })
         if(res.ok){
             alert('Logout Successful');
-            window.location.href = '/Frontend/signin.html';
+            window.location.href = 'https://cute-croissant-2a6b2d.netlify.app/signin.html';
         }else{
             alert('Try Again after sometime');
         }

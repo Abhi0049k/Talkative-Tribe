@@ -18,7 +18,7 @@ formEl.addEventListener('submit', async (evnt)=>{
         localStorage.setItem('token', res.access_token);
         localStorage.setItem('username', res.user);
         localStorage.setItem('userId', res.userId);
-        window.location.href = '/Frontend/index.html'
+        window.location.href = 'https://cute-croissant-2a6b2d.netlify.app/index.html'
     }else{
         alert(res.msg)
     }

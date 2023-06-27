@@ -16,7 +16,7 @@ formEl.addEventListener('submit', async (evnt)=>{
     res = await res.json();
     if(result){
         alert('Sign up Successful');
-        window.location.href='/Frontend/signin.html';
+        window.location.href='https://cute-croissant-2a6b2d.netlify.app/signin.html';
     }else{
         alert(res.msg);
     }
