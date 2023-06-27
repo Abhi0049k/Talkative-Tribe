@@ -10,6 +10,7 @@ const userList = document.querySelector('.container .left .users .usersList');
 const inputField = document.querySelector('.container .right form #inputField');
 const sendBtn = document.querySelector('.container .right form input[type="submit"]');
 const formEl = document.querySelector('.container .right form');
+const baseServerUrl = 'https://group-chat-production.up.railway.app'
 userDis.innerText = user;
 let activeRoom = '';
 let prevRoom = '';
@@ -18,7 +19,7 @@ if (!token) {
     window.location.href = '/Frontend/signin.html';
 }
 else {
-    const socket = io('http://localhost:8998', { transports: ['websocket'], auth: { token } });
+    const socket = io(`${baseServerUrl}`, { transports: ['websocket'], auth: { token } });
 
     if (activeRoom === '') {
         chatContainer.innerHTML = `<h1>Join a Room to use group chat</h1>`;
@@ -98,7 +99,7 @@ else {
             div.append(p);
             chatContainer.append(div);
         } else {
-            let name = await fetch(`http://localhost:8998/user/${msg.userId}`, {
+            let name = await fetch(`${baseServerUrl}/user/${msg.userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-type': 'application/json',
@@ -122,10 +123,23 @@ else {
         }
     })
 
-    logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem(token);
-        localStorage.removeItem(user);
-        window.location.href = '/Frontend/signin.html';
+    logoutBtn.addEventListener('click', async () => {
+        localStorage.setItem('token', '');
+        localStorage.setItem('user', '');
+        localStorage.setItem('userId', '');
+        let res = await fetch(`${baseServerUrl}/user/logout`,{
+            method: 'POST',
+            headers:{
+                'Content-type': 'application/json',
+                authorization: `Bearer ${token}`
+            }
+        })
+        if(res.ok){
+            alert('Logout Successful');
+            window.location.href = '/Frontend/signin.html';
+        }else{
+            alert('Try Again after sometime');
+        }
     })
 
     createRoom.addEventListener('click', () => {

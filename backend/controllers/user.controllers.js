@@ -38,7 +38,7 @@ const verifying = (id, email)=>{
         to: email,
         from: process.env.SMTP_USER,
         subject: 'Email Verification',
-        html: `<a href=http://localhost:8998/user/verify/${id}>verify</a>`
+        html: `<a href=https://group-chat-production.up.railway.app/user/verify/${id}>verify</a>`
     }, (err)=>{
         if(err){
             console.log("didn't send the email");
