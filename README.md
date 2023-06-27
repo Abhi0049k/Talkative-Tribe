@@ -1,7 +1,7 @@
 
 # Group Chat
 
-One of the key features of Group Chat is the ability to create dedicated chat rooms. This feature allows users to set up virtual spaces where they can gather with specific groups, teams, or communities to have focused discussions and collaborate effectively. By creating a room, users can invite selected individuals to join, ensuring privacy and exclusivity.
+One of the key features of Group Chat is the ability to create dedicated chat rooms. This feature allows users to set up virtual spaces where they can gather with specific groups, teams, or communities to have focused discussions and collaborate effectively.
 
 
 ## Contributing
