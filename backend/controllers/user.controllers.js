@@ -41,6 +41,7 @@ const verifying = (id, email)=>{
         html: `<a href=https://group-chat-production.up.railway.app/user/verify/${id}>verify</a>`
     }, (err)=>{
         if(err){
+            console.log(err.message);
             console.log("didn't send the email");
         }else{
             console.log('Email sent');
