@@ -11,8 +11,8 @@ const transporter = nodemailer.createTransport({
         user: process.env.SMTP_USER,
         pass: process.env.PASSWORD
     },
-    port: 465,
-    secure: true
+    port: 587,
+    secure: false
 })
 
 const login = async (req, res)=>{
@@ -40,11 +40,10 @@ const verifying = (id, email)=>{
         to: email,
         from: process.env.SMTP_USER,
         subject: 'Email Verification',
-        html: `<a href=https://group-chat-production.up.railway.app/user/verify/${id}>verify</a>`
+        html: `<p>Hello, Please click on verify to get your email verified. <a href=https://group-chat-production.up.railway.app/user/verify/${id}>verify</a></p>`
     }, (err)=>{
         if(err){
-            console.log(err);
-            console.log("didn't send the email");
+            console.log("didn't send the email",err);
         }else{
             console.log('Email sent');
         }
