@@ -10,7 +10,9 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: process.env.SMTP_USER,
         pass: process.env.PASSWORD
-    }
+    },
+    port: 465,
+    secure: true
 })
 
 const login = async (req, res)=>{
@@ -20,9 +22,9 @@ const login = async (req, res)=>{
         if(!isUserValid) return res.status(404).send({msg: "Wrong Credentials"});
         const result = await compare(password, isUserValid.password);
         if(result){
-            // if(!isUserValid.isVerified){
-            //     return res.status(404).send({msg: 'Your email is not verified'});
-            // }
+            if(!isUserValid.isVerified){
+                return res.status(404).send({msg: 'Your email is not verified'});
+            }
             const access_token = jwt.sign({userId: isUserValid._id}, process.env.JWT_SECRET_KEY, {expiresIn: '4h'});
             return res.status(200).send({msg: 'Receiving from frontend', access_token, 'user': isUserValid.name, 'userId': isUserValid._id });
         }
