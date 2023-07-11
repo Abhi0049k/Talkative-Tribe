@@ -124,9 +124,12 @@ else {
     })
 
     logoutBtn.addEventListener('click', async () => {
-        localStorage.setItem('token', '');
-        localStorage.setItem('user', '');
-        localStorage.setItem('userId', '');
+        // localStorage.setItem('token', '');
+        // localStorage.setItem('user', '');
+        // localStorage.setItem('userId', '');
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        localStorage.removeItem('userId');
         let res = await fetch(`${baseServerUrl}/user/logout`,{
             method: 'POST',
             headers:{
