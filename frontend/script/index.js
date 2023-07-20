@@ -10,7 +10,7 @@ const userList = document.querySelector('.container .left .users .usersList');
 const inputField = document.querySelector('.container .right form #inputField');
 const sendBtn = document.querySelector('.container .right form input[type="submit"]');
 const formEl = document.querySelector('.container .right form');
-const baseServerUrl = 'http://localhost:8998'
+const baseServerUrl = 'https://group-chat-production.up.railway.app'
 userDis.innerText = user;
 let activeRoom = '';
 let prevRoom = '';
