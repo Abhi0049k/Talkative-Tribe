@@ -26,7 +26,6 @@ else {
     }
 
     socket.on('userList', (user) => {
-        console.log('Event: userList');
         let arr = user.map((el) => {
             return `<p>${el.name}</p>`;
         })
@@ -34,7 +33,6 @@ else {
     })
 
     socket.on('nroom', () => {
-        console.log('Event: nroom');
         socket.emit('rList');
     })
 
