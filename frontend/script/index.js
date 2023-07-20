@@ -10,13 +10,13 @@ const userList = document.querySelector('.container .left .users .usersList');
 const inputField = document.querySelector('.container .right form #inputField');
 const sendBtn = document.querySelector('.container .right form input[type="submit"]');
 const formEl = document.querySelector('.container .right form');
-const baseServerUrl = 'https://group-chat-production.up.railway.app'
+const baseServerUrl = 'http://localhost:8998'
 userDis.innerText = user;
 let activeRoom = '';
 let prevRoom = '';
 
 if (!token) {
-    window.location.href = 'https://cute-croissant-2a6b2d.netlify.app/signin.html';
+    window.location.href = 'signin.html';
 }
 else {
     const socket = io(`${baseServerUrl}`, { transports: ['websocket'], auth: { token } });
@@ -39,16 +39,13 @@ else {
     })
 
     socket.on('roomList', (rooms) => {
-        // console.log('Event: roomList')
         let arr = rooms.map((el) => `<p data-roomName="${el.room}">${el.room}</p>`);
         roomsList.innerHTML = arr.join('\n');
         const roomList = document.querySelectorAll('.container .left .channels .roomsList p');
-        // console.log(roomList);
         roomList.forEach((el) => {
             el.addEventListener('click', (event) => {
                 prevRoom = activeRoom;
                 activeRoom = el.dataset.roomname;
-                // console.log(activeRoom, prevRoom);
                 socket.emit('joinRoom', { activeRoom, prevRoom });
             })
         });
@@ -124,9 +121,6 @@ else {
     })
 
     logoutBtn.addEventListener('click', async () => {
-        // localStorage.setItem('token', '');
-        // localStorage.setItem('user', '');
-        // localStorage.setItem('userId', '');
         localStorage.removeItem('token');
         localStorage.removeItem('username');
         localStorage.removeItem('userId');
