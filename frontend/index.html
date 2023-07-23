@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group-Chat</title>
+    <script src="https://kit.fontawesome.com/e2f54f564d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style/index.css">
 </head>
 <body>
     <nav>
-        <h1>Group-Chat</h1>
+        <h1>Talkative Tribe</h1>
         <ul>
             <li class="username"></li>
             <li class="logout">Logout</li>
@@ -17,12 +18,12 @@
     <div class="container">
         <div class="left">
             <div class="channels">
-                <button id="createRoom">Create Room</button>
+                <button id="createRoom">Create Group</button>
                 <div class="roomsList">
                 </div>
             </div>
             <div class="users">
-                <h1>Users</h1>
+                <h1>Active Users</h1>
                 <div class="usersList">
                 </div>
             </div>
@@ -34,6 +35,12 @@
                     <input type="text" placeholder="Enter" id="inputField">
                     <input type="submit" value="Send">
                 </form>
+        </div>
+    </div>
+    <div id="loginMessage">
+        <div class="h1">
+            <h1></h1>
+            <p></p>
         </div>
     </div>
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>

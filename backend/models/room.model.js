@@ -4,6 +4,10 @@ const roomSchema = mongoose.Schema({
     room: {
         type: String,
         required:true
+    },
+    creatorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
 })
 
