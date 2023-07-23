@@ -12,7 +12,7 @@ const userList = document.querySelector('.container .left .users .usersList');
 const inputField = document.querySelector('.container .right form #inputField');
 const sendBtn = document.querySelector('.container .right form input[type="submit"]');
 const formEl = document.querySelector('.container .right form');
-const baseServerUrl = 'http://localhost:8998'
+const baseServerUrl = 'https://talkative-tribe.onrender.com'
 userDis.innerText = user;
 let activeRoom = '';
 let prevRoom = '';
@@ -39,7 +39,6 @@ else {
     })
 
     socket.on('roomList', (rooms) => {
-        // let arr = rooms.map((el) => `<p data-roomName="${el.room}">${el.room}</p>`);
         let arr = rooms.map((el)=>{
             if(el.creatorId==userId)
             return `<p class="myCreatedRoom" data-roomName="${el.room}"><span>${el.room}</span><i class="fa-solid fa-trash trashCan" data-roomName="${el.room}"></i></p>`;

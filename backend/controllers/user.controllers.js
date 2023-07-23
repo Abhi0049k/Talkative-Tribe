@@ -68,7 +68,7 @@ const googleAuth = async(req, res)=>{
             let queryString = JSON.stringify(token);
             let queryUser = JSON.stringify(userExists.name);
             let queryId = JSON.stringify(userExists._id);
-            res.redirect(`http://127.0.0.1:5500/frontend/signin.html?token=${queryString}&user=${queryUser}&userId=${queryId}`)
+            res.redirect(`https://cute-croissant-2a6b2d.netlify.app/signin.html?token=${queryString}&user=${queryUser}&userId=${queryId}`)
         }else{
             let password = uuidv4();
             password = await hash(password, Number(process.env.SALT_ROUNDS));
@@ -78,11 +78,11 @@ const googleAuth = async(req, res)=>{
             let queryString = JSON.stringify(token);
             let queryUser = JSON.stringify(newUser.name);
             let queryId = JSON.stringify(newUser._id);
-            res.redirect(`http://127.0.0.1:5500/frontend/signin.html?token=${queryString}&user=${queryUser}&userId=${queryId}`);
+            res.redirect(`https://cute-croissant-2a6b2d.netlify.app/signin.html?token=${queryString}&user=${queryUser}&userId=${queryId}`);
         }
     }catch(err){
         console.log(err.message);
-        res.redirect('http://127.0.0.1:5500/frontend/signin.html');
+        res.redirect('https://cute-croissant-2a6b2d.netlify.app/signin.html');
     }
 }
 

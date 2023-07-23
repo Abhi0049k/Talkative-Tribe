@@ -163,7 +163,7 @@ const generateEmail = (id)=>{
             <p>Welcome to Talkative Tribe!</p>
             <p>We're just sending this email to confirm your email address.</p>
             <p>To verify your address, please click on the button below:</p>
-            <a href="http://localhost:8998/user/verify/${id}" class="button">Verify Email</a>
+            <a href="https://talkative-tribe.onrender.com/user/verify/${id}" class="button">Verify Email</a>
             <p class="note">Once you've verified your email address, you'll be able to start using Talkative Tribe's services.</p>
         </div>
         <div class="footer">

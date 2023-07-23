@@ -13,7 +13,7 @@ userRouter.post('/login', login);
 
 userRouter.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-userRouter.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: 'http://127.0.0.1:5500/frontend/signin.html', session:false}), googleAuth);
+userRouter.get('/auth/google/callback', passport.authenticate('google', {failureRedirect: 'https://cute-croissant-2a6b2d.netlify.app/signin.html', session:false}), googleAuth);
 
 userRouter.get('/verify/:id', verify)
 

@@ -9,7 +9,7 @@ This is an individual project build within a span of two day.
 
 ## Deployment
 
-Backend is deployed on Railway:  [Deployed Link](group-chat-production.up.railway.app)
+Backend is deployed on Render:  [Deployed Link](https://talkative-tribe.onrender.com/)
 
 Frontend is deployed on Netlify: [Deployed Link](https://cute-croissant-2a6b2d.netlify.app/)
 ## Features

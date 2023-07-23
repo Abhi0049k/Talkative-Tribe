@@ -5,7 +5,7 @@ const passwordEl = document.querySelector('#password');
 
 formEl.addEventListener('submit', async (evnt)=>{
     evnt.preventDefault();
-    let res = await fetch('http://localhost:8998/user/register',{
+    let res = await fetch('https://talkative-tribe.onrender.com/user/register',{
         body: JSON.stringify({name: nameEl.value, email: emailEl.value, password: passwordEl.value}),
         method: 'POST',
         headers: {

@@ -5,7 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_OAUTH_ID,
     clientSecret: process.env.GOOGLE_OAUTH_SECRET,
-    callbackURL: "http://localhost:8998/user/auth/google/callback"
+    callbackURL: "https://talkative-tribe.onrender.com/user/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
