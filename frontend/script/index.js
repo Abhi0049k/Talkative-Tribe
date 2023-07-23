@@ -175,7 +175,7 @@ else {
     })
 
     createRoom.addEventListener('click', () => {
-        let name = prompt('Enter room name');
+        let name = prompt('Enter group name');
         if(name)
         socket.emit('createRoom', {name, userId});
     })
