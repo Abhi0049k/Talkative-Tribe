@@ -52,9 +52,11 @@ SignIn Page
 ![signin](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/736b0a49-60cd-46c4-861d-81d1a03ed7ab)
 
 DashBoard Page
-![home_page](https://github.com/Abhi0049k/Group-Chat/assets/112062354/5da737c7-77a7-4826-9ab5-a9fb7bafa547)
+![group](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/8b600648-634d-4aa9-bf6e-34904657c299)
 
-![groupchat](https://github.com/Abhi0049k/Group-Chat/assets/112062354/37c88c13-a62c-4c0c-9891-ffcd264c02cf)
+![goku side](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/faa20cd6-8694-4467-9a5b-637ae85b4089)
+
+![gokuchat](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/59c6438a-9163-4290-a741-a5cfd3079cb4)
 
 ## Run Locally
 
