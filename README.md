@@ -46,10 +46,10 @@ Frontend is deployed on Netlify: [Deployed Link](https://cute-croissant-2a6b2d.n
 
 
 SignUp Page
-![group-chat](https://github.com/Abhi0049k/Group-Chat/assets/112062354/8e943232-7ae1-433b-bb72-d1ee0e5d1eb3)
+![signup](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/00af7b9b-b020-41f9-969a-3d8ce69eb352)
 
 SignIn Page
-![group-chat-signin](https://github.com/Abhi0049k/Group-Chat/assets/112062354/babe9923-2ec7-404b-9892-03517c94d844)
+![signin](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/736b0a49-60cd-46c4-861d-81d1a03ed7ab)
 
 DashBoard Page
 ![home_page](https://github.com/Abhi0049k/Group-Chat/assets/112062354/5da737c7-77a7-4826-9ab5-a9fb7bafa547)
