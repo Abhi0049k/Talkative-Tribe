@@ -39,7 +39,6 @@ userRouter.post("/login", async (req: Request, res: Response, next: NextFunction
         const result = await compare(password, userExists.password);
         if (!result) return next({ status: 422, message: "Wrong Password" });
         const token: string = sign({ id: userExists.id, name: userExists.name }, JWT_SECRET_KEY, { expiresIn: "48h" })
-        console.log(userExists, token);
         res.cookie("token", token);
         res.status(200).send({ message: "Login Successful" });
     } catch (err) {

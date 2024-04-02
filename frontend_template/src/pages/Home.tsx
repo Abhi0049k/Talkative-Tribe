@@ -1,29 +1,23 @@
 import HomeLeft from "@/components/HomeLeft";
 import HomeRight from "@/components/HomeRight";
-import { io } from "socket.io-client";
+import socket from "@/config/socket";
+import { socketState, tokenState } from "@/store/atom";
 import { FC, useEffect } from "react";
-const BACKEND_SERVER_URL = import.meta.env.VITE_BACKEND_SERVER_URL;
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 const Home: FC = () => {
+    const token = useRecoilValue(tokenState);
+    const setSocket = useSetRecoilState(socketState);
 
     useEffect(() => {
         document.title = "Home | Talkative Tribe";
-        const socket = io(BACKEND_SERVER_URL, { transports: ['websocket'] });
-        socket.on("connect", () => {
-            console.log("finally connected");
-        })
-
-        socket.on("message", (msg) => {
-            console.log("reaching here");
-            console.log(msg);
-        })
-    }, []);
-
+        setSocket(socket(token));
+    }, [setSocket]);
 
     return (
         <div className="flex h-[90vh] mt-2">
-            <HomeRight />
             <HomeLeft />
+            <HomeRight />
         </div>
     )
 }
