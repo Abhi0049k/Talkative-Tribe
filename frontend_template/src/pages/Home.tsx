@@ -4,7 +4,7 @@ import socketIo from "@/configs/socket-io";
 import { tokenState } from "@/store/atom";
 import { FC, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { io, Socket } from "socket.io-client";
+import { Socket } from "socket.io-client";
 
 
 
