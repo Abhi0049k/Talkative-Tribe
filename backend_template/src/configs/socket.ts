@@ -35,5 +35,9 @@ export default (server: http.Server) => {
             console.log("disconnected User: ", decoded);
             console.log("Updated User List: ", onlineUser);
         })
+
+        socket.on('sendingMsg', () => {
+            console.log("working fine");
+        })
     })
 }

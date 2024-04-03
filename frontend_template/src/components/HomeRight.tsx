@@ -1,19 +1,35 @@
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { useRecoilValue } from "recoil";
-import { socketState } from "@/store/atom";
+import { Socket } from "socket.io-client";
 
-const HomeRight: FC = () => {
+interface HomeRightProps {
+    socket?: Socket;
+}
+
+const HomeRight: FC<HomeRightProps> = ({ socket }) => {
     const [val, setVal] = useState<string>('');
-    const socket = useRecoilValue(socketState);
+
+    const handleClick = useCallback(() => {
+        console.log("Value to be sent: ", val);
+        try {
+            socket?.emit("sendingMsg", val);
+            console.log("Message Done");
+        } catch (err) {
+            console.log(err);
+        }
+    }, [val, socket])
+
+    const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        setVal(event.target.value);
+    }, [])
 
     return (
         <div className="w-[75%] border h-full rounded-md mx-1 flex flex-col">
             <div></div>
             <div className="flex">
-                <Input />
-                <Button onClick={() => socket.on("sendingMsg", val)}>Send</Button>
+                <Input value={val} onChange={handleChange} />
+                <Button onClick={handleClick}>Send</Button>
             </div>
         </div>
     )

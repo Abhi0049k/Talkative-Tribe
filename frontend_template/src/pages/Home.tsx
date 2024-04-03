@@ -1,23 +1,30 @@
 import HomeLeft from "@/components/HomeLeft";
 import HomeRight from "@/components/HomeRight";
-import socket from "@/config/socket";
-import { socketState, tokenState } from "@/store/atom";
-import { FC, useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import socketIo from "@/configs/socket-io";
+import { tokenState } from "@/store/atom";
+import { FC, useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { io, Socket } from "socket.io-client";
+
+
 
 const Home: FC = () => {
     const token = useRecoilValue(tokenState);
-    const setSocket = useSetRecoilState(socketState);
+    const [sockt, setsocket] = useState<Socket>();
 
     useEffect(() => {
         document.title = "Home | Talkative Tribe";
-        setSocket(socket(token));
-    }, [setSocket]);
+
+        const socket = socketIo(token);
+
+        setsocket(socket);
+
+    }, [token]);
 
     return (
         <div className="flex h-[90vh] mt-2">
             <HomeLeft />
-            <HomeRight />
+            <HomeRight socket={sockt} />
         </div>
     )
 }
