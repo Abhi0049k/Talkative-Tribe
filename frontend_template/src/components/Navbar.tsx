@@ -11,7 +11,6 @@ const Navbar: FC = () => {
             <h1 className="text-xl rounded-full border font-semibold h-12 w-12 flex justify-center items-center md:hidden">TT</h1>
             <div className="flex gap-4">
                 <ModeToggle />
-                <UserSearch />
                 <Button>Logout</Button>
             </div>
         </nav>

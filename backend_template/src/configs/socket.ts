@@ -20,14 +20,11 @@ export default (server: http.Server) => {
         let decoded: JwtPayload;
         try {
             decoded = jwt.verify(token, (process.env.JWT_SECRET_KEY || "")) as JwtPayload
-            console.log(decoded);
             userUpdater(onlineUser, { id: decoded.id, name: decoded.name });
         } catch (err) {
             console.log(err);
             socket.emit("loginAgain")
         }
-        console.log(onlineUser);
-        console.log('A user Connected');
         socket.emit('message', "Hello From Server")
 
         socket.on('disconnect', () => {
@@ -36,8 +33,8 @@ export default (server: http.Server) => {
             console.log("Updated User List: ", onlineUser);
         })
 
-        socket.on('sendingMsg', () => {
-            console.log("working fine");
+        socket.on('sendingMsg', (val) => {
+            io.emit("receivedMsg", val)
         })
     })
 }

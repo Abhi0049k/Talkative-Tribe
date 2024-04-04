@@ -6,6 +6,7 @@ const UserSearch: FC = () => {
     const [name, setName] = useState<string>('');
     const [debouncedName, setDebouncedName] = useState<string>('');
 
+
     const handleChangeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
     }, []);
@@ -14,6 +15,7 @@ const UserSearch: FC = () => {
         if (debouncedName) {
             console.log(debouncedName);
         }
+
     }, [debouncedName])
 
     useEffect(() => {

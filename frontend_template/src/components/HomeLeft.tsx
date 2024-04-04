@@ -1,12 +1,16 @@
 import { FC } from "react";
 import { ScrollArea } from "./ui/scroll-area";
+import UserSearch from "./UserSearch";
 
 const HomeLeft: FC = () => {
     return (
-        <ScrollArea className="w-[25%] h-full rounded-md border p-4 flex-col flex">
-            <div className="flex flex-col gap-2">
-            </div>
-        </ScrollArea>
+        <div className="flex flex-col w-[25%]">
+            <UserSearch />
+            <ScrollArea className="min-w-[25%] h-full p-4 flex-col flex">
+                <div className="flex flex-col gap-2 w-[25%]">
+                </div>
+            </ScrollArea>
+        </div>
     );
 }
 

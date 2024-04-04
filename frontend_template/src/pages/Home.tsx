@@ -6,8 +6,6 @@ import { FC, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { Socket } from "socket.io-client";
 
-
-
 const Home: FC = () => {
     const token = useRecoilValue(tokenState);
     const [sockt, setsocket] = useState<Socket>();
@@ -16,9 +14,7 @@ const Home: FC = () => {
         document.title = "Home | Talkative Tribe";
 
         const socket = socketIo(token);
-
         setsocket(socket);
-
     }, [token]);
 
     return (

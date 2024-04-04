@@ -3,7 +3,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Socket } from "socket.io-client";
 
-interface HomeRightProps {
+export interface HomeRightProps {
     socket?: Socket;
 }
 
@@ -18,7 +18,7 @@ const HomeRight: FC<HomeRightProps> = ({ socket }) => {
         } catch (err) {
             console.log(err);
         }
-    }, [val, socket])
+    }, [val])
 
     const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setVal(event.target.value);
