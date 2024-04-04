@@ -25,9 +25,11 @@ export default (server: http.Server) => {
             console.log(err);
             socket.emit("loginAgain")
         }
+        console.log(onlineUser)
         socket.emit('message', "Hello From Server")
 
         socket.on('disconnect', () => {
+            if (!token) return;
             onlineUser = onlineUser.filter((el) => el.id !== decoded.id);
             console.log("disconnected User: ", decoded);
             console.log("Updated User List: ", onlineUser);
@@ -35,6 +37,13 @@ export default (server: http.Server) => {
 
         socket.on('sendingMsg', (val) => {
             io.emit("receivedMsg", val)
+        })
+
+        socket.on('activeUserSearchList', (name) => {
+            console.log(name)
+            const searchList = onlineUser.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
+            console.log("Searching active user: ", searchList);
+            socket.emit("activeUserList", searchList);
         })
     })
 }

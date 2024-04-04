@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Button } from "./ui/button";
 import { ModeToggle } from "./mode-toggle";
-import UserSearch from "./UserSearch";
 
 const Navbar: FC = () => {
 

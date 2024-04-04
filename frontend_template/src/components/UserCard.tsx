@@ -1,11 +1,18 @@
 import { FC } from "react";
 import { FiMoreVertical } from "react-icons/fi";
 
-const UserCard: FC = () => {
+export interface activePreviousUserI {
+    name: string;
+    id: string;
+}
+
+const UserCard: FC<activePreviousUserI> = ({ name, id }) => {
     return (
-        <div className="border max-h-14 p-4 flex justify-between items-center rounded-md">
-            User 1
-            <div className="hover:bg-slate-200 py-2 px-1 rounded">
+        <div data-id={id} className="cursor-pointer border max-h-14 p-4 flex text-wrap justify-between items-center rounded-md">
+            <p>
+                {name}
+            </p>
+            <div className="hover:bg-[hsl(var(--muted))] py-2 px-1 rounded">
                 <FiMoreVertical className="text-lg" />
             </div>
         </div>
