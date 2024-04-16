@@ -22,3 +22,10 @@ export const RegisterInput = z.object({
 })
 
 export type RegisterInputType = z.infer<typeof RegisterInput>
+
+export interface room {
+    id: string;
+    room: string;
+    creatorId: string;
+    participantId: string;
+}

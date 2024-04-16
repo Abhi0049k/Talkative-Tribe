@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { LoginInput, LoginInputType, RegisterInput, RegisterInputType, UserI } from "../shared";
+import { LoginInput, LoginInputType, RegisterInput, RegisterInputType, room, UserI } from "../shared";
 import prisma from "../configs/prismaInstance";
 import { compare, hash } from "bcrypt";
-import { sign } from "jsonwebtoken";
+import { JwtPayload, sign, verify } from "jsonwebtoken";
 
 export const userRouter = Router();
 
@@ -45,6 +45,68 @@ userRouter.post("/login", async (req: Request, res: Response, next: NextFunction
         console.log("/user/login", err);
         next(err);
     }
+})
+
+userRouter.get("/get-username/:id", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // const result = 
+        res.status(200).send({ msg: 'Welcome' });
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+})
+
+userRouter.get("/all-previous-private-rooms", async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.cookies.token);
+    const JWT_SECRET_KEY: string = process.env.JWT_SECRET_KEY || "";
+    console.log("JWT_SECRET_KEY: ", JWT_SECRET_KEY);
+    try {
+        const user = verify(req.cookies.token, JWT_SECRET_KEY) as JwtPayload;
+        console.log("user: ", user);
+        let rooms = await prisma.room.findMany({
+            where: {
+                OR: [
+                    { creatorId: user.id },
+                    { participantId: user.id }
+                ]
+            },
+            include: {
+                creator: true,
+                participant: true,
+            }
+        })
+        console.log("############################");
+        // rooms.forEach(async (el) => {
+        //     console.log(el.creatorId !== user.id);
+        //     if (el.creatorId !== user.id) {
+        //         el.creator = await prisma.user.findUnique({ where: { id: el.creatorId } });
+        //     } else if (el.participantId !== user.id) {
+        //         el.participant = await prisma.user.findUnique({ where: { id: el.participantId } });
+        //     }
+        //     // console.log('for user', user.id, user.name, 'room partner: ', el.creator || el.participant);
+        // })
+        console.log(rooms);
+        console.log("############################");
+        res.status(200).send({ rooms, id: user.id });
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
+})
+
+userRouter.post("/info", async (req: Request, res: Response, next: NextFunction) => {
+    const JWT_SECRET_KEY: string = process.env.JWT_SECRET_KEY || "";
+    try {
+        const token = req.cookies.token;
+        const user = verify(token, JWT_SECRET_KEY);
+        console.log("User Exist: ", user);
+        res.status(200).send(user)
+    } catch (err) {
+        console.log("/user/info", err);
+        next(err);
+    }
+
 })
 
 userRouter.get("/logout", async (req: Request, res: Response, next: NextFunction) => {

@@ -7,7 +7,7 @@ export const tokenState = atom<string>({
 
 export const currChat = atom<string>({
     key: "currChat",
-    default: 'sahi'
+    default: ''
 })
 
 export const prevChat = atom<string>({
