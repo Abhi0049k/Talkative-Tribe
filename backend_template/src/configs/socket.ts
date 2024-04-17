@@ -34,8 +34,20 @@ export default (server: http.Server) => {
             onlineUser = onlineUser.filter((el) => el.id !== decoded.id);
         })
 
-        socket.on('sendingMsg', (val) => {
-            io.emit("receivedMsg", val)
+        socket.on('sendingMsg', async (val) => {
+            const user = jwt.verify(socket.handshake.auth.token, (process.env.JWT_SECRET_KEY || "")) as JwtPayload;
+            const roomId = val.chat;
+            const participantId = val.chat.split("-#=#-").join('').split(user.id).join('');
+            const msg = await prisma.message.create({
+                data: {
+                    senderId: user.id,
+                    receiverId: participantId,
+                    roomId, message: val.val,
+                    img: val?.image
+                }
+            })
+            console.log("Message sent")
+            io.to(roomId).emit('receiveMessage', msg);
         })
 
         socket.on('activeUserSearchList', (name) => {
