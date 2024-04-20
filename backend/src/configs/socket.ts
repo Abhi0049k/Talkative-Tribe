@@ -104,7 +104,6 @@ export default (server: http.Server) => {
         })
 
         socket.on("leaveRoom", (cChat) => {
-            console.log(cChat);
             socket.emit("RoomLeaved")
         })
     })

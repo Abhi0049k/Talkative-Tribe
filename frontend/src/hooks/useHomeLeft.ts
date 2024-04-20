@@ -38,6 +38,7 @@ export const useHomeLeft = (socket: Socket) => {
 
     const handleUserClick = useCallback((id: string) => {
         socket?.emit('privateRoom', { id, cChat });
+        setName('');
     }, [socket, cChat])
 
     useEffect(() => {

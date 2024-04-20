@@ -10,13 +10,14 @@ const MobileHomeFirst: FC<HomeChildProps> = ({ socket }) => {
     const [cChat, setCurrChat] = useRecoilState(currChat);
 
     const handleLeaveRoom = useCallback(() => {
-        console.log(cChat, activeUserName)
         socket.emit("leaveRoom", cChat);
     }, [cChat, activeUserName])
 
     useEffect(() => {
         if (socket) {
             socket.on("RoomLeaved", () => {
+                setCurrChat(() => '');
+                setActiveUserName(() => "");
                 console.log("changing global state of: ", cChat, activeUserName);
             })
         }
@@ -27,7 +28,7 @@ const MobileHomeFirst: FC<HomeChildProps> = ({ socket }) => {
 
     return (
         <div className=" border px-1 py-2 flex justify-between items-center">
-            <div className="flex items-center border gap-4">
+            <div className="flex items-center gap-4">
                 <Button className="rounded-full" onClick={handleLeaveRoom}><LucideChevronLeft /></Button>
                 <h1 className="text-2xl">{activeUserName}</h1>
             </div>

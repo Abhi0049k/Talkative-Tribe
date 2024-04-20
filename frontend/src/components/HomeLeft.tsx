@@ -18,7 +18,7 @@ const HomeLeft: FC<HomeChildProps> = ({ socket }) => {
             {
                 (searchList.length === 0 && name)
                     ? (
-                        <div className="absolute z-10 top-32 rounded-md bg-[hsl(var(--primary-foreground))] w-[24%]">
+                        <div className="absolute z-10 top-32 rounded-md bg-[hsl(var(--primary-foreground))] sm:w-[24%] w-[100%]">
                             <div className="overflow-y-auto h-fit flex flex-col gap-2">
                                 <div className="cursor-pointer border max-h-14 p-4 flex text-wrap justify-between items-center rounded-md">
                                     Not Found!
@@ -26,7 +26,7 @@ const HomeLeft: FC<HomeChildProps> = ({ socket }) => {
                             </div>
                         </div>
                     ) : searchList.length > 0 ?
-                        <div className="absolute z-10 top-32 rounded-md bg-[hsl(var(--primary-foreground))] w-[24%]">
+                        <div className="absolute z-10 top-32 rounded-md bg-[hsl(var(--primary-foreground))] sm:w-[24%] w-[100%]">
                             <ScrollArea className="min-w-[100%] p-4">
                                 <div className="overflow-y-auto h-fit flex flex-col gap-2">
                                     {searchList.map((el: activePreviousUserI) => (
