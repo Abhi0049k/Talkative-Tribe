@@ -1,15 +1,18 @@
-import { currChat } from "@/store/atom"
+import { activeChatUserName, currChat } from "@/store/atom"
 import { useCallback, useEffect, useState } from "react";
-import { useRecoilValue } from "recoil"
+import { useRecoilValue, useSetRecoilState } from "recoil"
 
-export const useUserCard = (id: string, handleClick: (id: string) => void) => {
+export const useUserCard = (id: string, handleClick: (id: string) => void, name: string) => {
     const cChat = useRecoilValue(currChat);
+    const setActiveUserName = useSetRecoilState(activeChatUserName);
 
     const [selected, setSelected] = useState<boolean>(false);
 
     const handleChat = useCallback(() => {
+        console.log(id, name);
         handleClick(id);
-    }, [handleClick, id])
+        setActiveUserName(name);
+    }, [handleClick, id, name])
 
     useEffect(() => {
         if (cChat.includes(id)) setSelected(true);

@@ -14,3 +14,8 @@ export const prevChat = atom<string>({
     key: "prevChat",
     default: undefined
 })
+
+export const activeChatUserName = atom<string>({
+    key: "activeChatUserName",
+    default: ""
+})

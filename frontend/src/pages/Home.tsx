@@ -1,5 +1,6 @@
 import HomeLeft from "@/components/HomeLeft";
 import HomeRight from "@/components/HomeRight";
+import MobileHomeRight from "@/components/MobileHomeRight";
 import socketIo from "@/configs/socket-io";
 import { tokenState } from "@/store/atom";
 import { FC, useEffect, useState } from "react";
@@ -32,6 +33,7 @@ const Home: FC = () => {
                     <>
                         <HomeLeft socket={sockt} />
                         <HomeRight socket={sockt} />
+                        <MobileHomeRight socket={sockt} />
                     </>
                 )
             }

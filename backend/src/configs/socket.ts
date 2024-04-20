@@ -9,6 +9,8 @@ const userUpdater = (arr: DecodedUser[], user: DecodedUser) => {
     if (!present) arr.push(user);
 }
 
+export interface MessageIdSenderIdI { msgId: string; senderId: string; roomId: string; };
+
 export default (server: http.Server) => {
     const io = new Server(server);
     let onlineUser: DecodedUser[] = [];
@@ -84,6 +86,26 @@ export default (server: http.Server) => {
                 const messages = await prisma.message.findMany({ where: { roomId: chat } })
                 socket.emit("receiveMessages", { id: user.id, messages });
             }
+        })
+
+        socket.on("deleteMessage", async ({ msgId, senderId, roomId }: MessageIdSenderIdI) => {
+            const user = jwt.verify(socket.handshake.auth.token, (process.env.JWT_SECRET_KEY || "")) as JwtPayload;
+            if (senderId !== user.id) return;
+            try {
+                const checkmsg = await prisma.message.findUnique({ where: { senderId, id: msgId } });
+                if (checkmsg) {
+                    await prisma.message.delete({ where: { id: checkmsg.id } });
+                }
+
+                io.to(roomId).emit("DeletedMessage", msgId);
+            } catch (er) {
+                console.log(er);
+            }
+        })
+
+        socket.on("leaveRoom", (cChat) => {
+            console.log(cChat);
+            socket.emit("RoomLeaved")
         })
     })
 }
