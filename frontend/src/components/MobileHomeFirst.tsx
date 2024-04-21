@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { LucideChevronLeft, LucideMic, LucideVideo } from "lucide-react";
 import { useRecoilState } from "recoil";
 import { activeChatUserName, currChat } from "@/store/atom";
-import { HomeChildProps } from "../../../common/src";
+import { HomeChildProps } from "@mangalam0049k/common";
 
 const MobileHomeFirst: FC<HomeChildProps> = ({ socket }) => {
     const [activeUserName, setActiveUserName] = useRecoilState(activeChatUserName);

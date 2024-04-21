@@ -1,4 +1,4 @@
-import { LoginInput, RegisterInput, Action, CredentialsI } from "../../../common/src/index"
+import { LoginInput, RegisterInput, Action, CredentialsI } from "@mangalam0049k/common"
 import axios from "axios";
 import React, { useCallback, useState } from "react";
 import { useNavigate } from 'react-router-dom';

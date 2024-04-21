@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Link } from "react-router-dom";
-import { Action } from "../../../common/src/index";
+import { Action } from "@mangalam0049k/common";
 import useAuthentication from "@/hooks/useAuthentication";
 
 const Auth: FC<{ action: Action }> = ({ action }) => {

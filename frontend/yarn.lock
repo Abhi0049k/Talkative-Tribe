@@ -462,6 +462,14 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@mangalam0049k/common@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@mangalam0049k/common/-/common-1.0.0.tgz#9a9945e258ef25d5fb1642441dfeffa1b17a11c8"
+  integrity sha512-UN/5BmQWcWV7EOu7plSsFp7VdBhYUaZkwqsJjfLQnbQw1xCLiKJS+6g6B/hT1W+N9HI0r4q9h6kjI1ItRuuI3A==
+  dependencies:
+    socket.io-client "^4.7.5"
+    zod "^3.22.4"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"

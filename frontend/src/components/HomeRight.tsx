@@ -5,7 +5,7 @@ import moment from "moment";
 import Chat from "./Chat";
 import NoPreviousChats from "./NoPreviousChats";
 import { useHomeRight } from "@/hooks/useHomeRight";
-import { HomeChildProps, MessageI } from "../../../common/src/index";
+import { HomeChildProps, MessageI } from "@mangalam0049k/common";
 
 const HomeRight: FC<HomeChildProps> = ({ socket }) => {
     const { chat, messages, chatContainerRef, userId, val, handleChange, handleClick } = useHomeRight(socket);

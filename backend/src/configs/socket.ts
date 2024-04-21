@@ -2,7 +2,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import http from 'http';
 import { Server } from 'socket.io';
 import prisma from '../configs/prismaInstance';
-import { DecodedUser } from "../../../common/src/index"
+import { DecodedUser } from "@mangalam0049k/common";
 
 const userUpdater = (arr: DecodedUser[], user: DecodedUser) => {
     let present = arr.find((el) => el.id === user.id)

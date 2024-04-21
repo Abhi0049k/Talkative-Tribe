@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import prisma from "../configs/prismaInstance";
 import { compare, hash } from "bcrypt";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
-import { userProfileT, LoginInput, LoginInputType, RegisterInput, RegisterInputType } from "../../../common/src/index";
+import { userProfileT, LoginInput, LoginInputType, RegisterInput, RegisterInputType } from "@mangalam0049k/common";
 
 export const userRouter = Router();
 

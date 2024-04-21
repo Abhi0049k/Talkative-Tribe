@@ -1,4 +1,4 @@
-import { dataI, MessageI } from "../../../common/src/index";
+import { dataI, MessageI } from "@mangalam0049k/common";
 import { currChat } from "@/store/atom";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
