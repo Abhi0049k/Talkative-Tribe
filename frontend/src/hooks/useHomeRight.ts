@@ -1,4 +1,4 @@
-import { dataI, MessageI } from "@/shared";
+import { dataI, MessageI } from "../../../common/src/index";
 import { currChat } from "@/store/atom";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -39,8 +39,8 @@ export const useHomeRight = (socket: Socket) => {
     useEffect(() => {
         if (socket) {
             socket.on("receiveMessages", (data: dataI) => {
-                setId(data.id)
-                setMessages(data.messages)
+                setId(() => data.id)
+                setMessages(() => data.messages)
             })
 
             socket.on("receiveMessage", (data: MessageI) => {
@@ -48,11 +48,23 @@ export const useHomeRight = (socket: Socket) => {
                 for (let i = 0; i < messages.length; i++) {
                     if (messages[i].id === data.id) flag = false;
                 }
+
                 if (flag)
                     setMessages((prev) => [...prev, data])
             })
+
+            socket.on("DeletedMessage", (data: string) => {
+                const arr = messages.filter((el) => el.id !== data);
+                setMessages(() => arr);
+            })
         }
-    }, [socket])
+
+        return () => {
+            socket.off("receiveMessages")
+            socket.off("receiveMessage")
+            socket.off("DeletedMessage")
+        }
+    }, [socket, messages, chat])
 
     useEffect(() => {
         scrollToBottom();

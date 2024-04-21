@@ -1,21 +1,10 @@
-import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { FC, useCallback } from "react";
-import { DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { chatI } from "./Chat";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { LucideTrash2 } from "lucide-react";
 import { FiMoreVertical } from "react-icons/fi";
-import { Socket } from "socket.io-client";
 
-export interface chatI {
-    msg: string;
-    datetime: string;
-    yours: boolean;
-    socket: Socket;
-    senderId: string;
-    msgId: string;
-    roomId: string;
-}
-
-const Chat: FC<chatI> = ({ msg, datetime, yours, msgId, senderId, socket, roomId }) => {
+const MobileChat: FC<chatI> = ({ msg, datetime, yours, msgId, senderId, socket, roomId }) => {
     const handleDelete = useCallback(() => {
         socket.emit("deleteMessage", { msgId, senderId, roomId });
     }, []);
@@ -52,4 +41,4 @@ const Chat: FC<chatI> = ({ msg, datetime, yours, msgId, senderId, socket, roomId
     );
 }
 
-export default Chat
+export default MobileChat

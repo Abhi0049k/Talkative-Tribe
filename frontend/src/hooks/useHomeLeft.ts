@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { Socket } from "socket.io-client";
 import axios, { AxiosResponse } from "axios";
 import { activePreviousUserI } from "@/components/UserCard";
-import { roomsI } from "@/shared";
+import { roomsI } from "../../../common/src/index";
 
 const BACKEND_SERVER_URL = import.meta.env.VITE_BACKEND_SERVER_URL;
 
@@ -38,6 +38,7 @@ export const useHomeLeft = (socket: Socket) => {
 
     const handleUserClick = useCallback((id: string) => {
         socket?.emit('privateRoom', { id, cChat });
+        setName('');
     }, [socket, cChat])
 
     useEffect(() => {
