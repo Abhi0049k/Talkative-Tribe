@@ -14,17 +14,10 @@ const server = http.createServer(app);
 socket(server);
 
 app.use(cookieParser());
-const allowedOrigins = ['https://cute-croissant-2a6b2d.netlify.app'];
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: "https://talkative-tribe-frontend.vercel.app",
     credentials: true
-}));
+}))
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
