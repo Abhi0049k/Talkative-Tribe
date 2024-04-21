@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { Socket } from "socket.io-client";
 import axios, { AxiosResponse } from "axios";
 import { activePreviousUserI } from "@/components/UserCard";
-import { roomsI } from "../../../common/src/index";
+import { roomsI } from "@mangalam0049k/common";
 
 const BACKEND_SERVER_URL = import.meta.env.VITE_BACKEND_SERVER_URL;
 

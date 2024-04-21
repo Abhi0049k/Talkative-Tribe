@@ -1,7 +1,7 @@
 import { FC, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loading from "@/components/Loading";
-import { Action } from "../../../common/src/index";
+import { Action } from "@mangalam0049k/common";
 
 const Home = lazy(() => import("./Home"));
 const Layout = lazy(() => import("@/Layout/Layout"));

@@ -1,6 +1,6 @@
 import { useHomeRight } from "@/hooks/useHomeRight";
 import { FC } from "react";
-import { HomeChildProps, MessageI } from "../../../common/src";
+import { HomeChildProps, MessageI } from "@mangalam0049k/common";
 import MobileHomeFirst from "./MobileHomeFirst";
 import MobileChat from "./MobileChat";
 import moment from "moment";

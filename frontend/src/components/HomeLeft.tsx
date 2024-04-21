@@ -4,7 +4,7 @@ import { Label } from "./ui/label";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import UserCard, { activePreviousUserI } from "./UserCard";
 import { useHomeLeft } from "@/hooks/useHomeLeft";
-import { HomeChildProps } from "../../../common/src/index";
+import { HomeChildProps } from "@mangalam0049k/common";
 
 const HomeLeft: FC<HomeChildProps> = ({ socket }) => {
     const { name, searchList, userId, allPrevPrivateRooms, handleChangeName, handleUserClick } = useHomeLeft(socket);
