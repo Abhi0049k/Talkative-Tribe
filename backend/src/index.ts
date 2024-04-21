@@ -16,7 +16,7 @@ socket(server);
 app.use(cookieParser());
 app.use(cors({
     credentials: true,
-    origin: "https://cute-croissant-2a6b2d.netlify.app/"
+    // origin: "https://cute-croissant-2a6b2d.netlify.app/"
 }));
 app.use(express.json());
 
@@ -38,5 +38,5 @@ const errorHandler: ErrorRequestHandler = (err, req: Request, res: Response, nex
 app.use(errorHandler);
 
 server.listen(PORT, () => {
-    console.log(`App is running at http://localhost:${PORT}`);
+    console.log(`App is running at port:${PORT}`);
 });
