@@ -16,7 +16,7 @@ socket(server);
 app.use(cookieParser());
 app.use(cors({
     credentials: true,
-    origin: "http://localhost:5173"
+    origin: "https://cute-croissant-2a6b2d.netlify.app"
 }));
 app.use(express.json());
 

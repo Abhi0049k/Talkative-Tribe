@@ -29,6 +29,7 @@ const useAuthentication = (action: Action) => {
             if (action === Action.register) {
                 const result = RegisterInput.safeParse(credentials);
                 if (result) {
+                    console.log('reaching here');
                     await axios.post(`${BACKEND_SERVER_URL}user/register`, credentials, {
                         withCredentials: true
                     })
@@ -40,6 +41,7 @@ const useAuthentication = (action: Action) => {
             } else if (action === Action.login) {
                 const result = LoginInput.safeParse(credentials);
                 if (result) {
+                    console.log('reaching here login');
                     await axios.post(`${BACKEND_SERVER_URL}user/login`, credentials, {
                         withCredentials: true
                     })
