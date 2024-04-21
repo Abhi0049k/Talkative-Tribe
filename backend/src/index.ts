@@ -14,9 +14,16 @@ const server = http.createServer(app);
 socket(server);
 
 app.use(cookieParser());
+const allowedOrigins = ['https://cute-croissant-2a6b2d.netlify.app'];
 app.use(cors({
-    credentials: true,
-    // origin: "https://cute-croissant-2a6b2d.netlify.app/"
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
 }));
 app.use(express.json());
 
