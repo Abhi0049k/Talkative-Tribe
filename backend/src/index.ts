@@ -15,9 +15,9 @@ socket(server);
 
 app.use(cookieParser());
 app.use(cors({
-    credentials: true,
-    origin: "http://localhost:5173"
-}));
+    origin: "https://talkative-tribe-frontend.vercel.app",
+    credentials: true
+}))
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
@@ -38,5 +38,5 @@ const errorHandler: ErrorRequestHandler = (err, req: Request, res: Response, nex
 app.use(errorHandler);
 
 server.listen(PORT, () => {
-    console.log(`App is running at http://localhost:${PORT}`);
+    console.log(`App is running at port:${PORT}`);
 });

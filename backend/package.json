@@ -1,15 +1,15 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend for LNT_Now project",
+  "description": "Backend for Talkative-Tribe",
   "main": "build/index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc -b",
-    "start": "node build/index.js"
+    "start": "node dist/index.js"
   },
   "keywords": [],
-  "repository": "https://github.com/Abhi0049k/lnt_now",
+  "repository": "https://github.com/Abhi0049k/Talkative-Tribe.git",
   "author": "Mangalam Kumar",
   "license": "ISC",
   "dependencies": {

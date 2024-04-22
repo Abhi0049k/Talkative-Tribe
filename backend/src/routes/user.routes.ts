@@ -27,6 +27,7 @@ userRouter.post("/register", async (req: Request, res: Response, next: NextFunct
 })
 
 userRouter.post("/login", async (req: Request, res: Response, next: NextFunction) => {
+    console.log('reaching here');
     const { email, password }: LoginInputType = req.body;
     const JWT_SECRET_KEY: string = process.env.JWT_SECRET_KEY || "";
     try {
