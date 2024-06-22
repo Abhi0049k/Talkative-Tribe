@@ -120,7 +120,7 @@ talkative-tribe/
 │   ├── .env.example    # Frontend environment variables example
 │   └── ...
 ├── common/             # Common types and utilities
-│   ├── src/          # TypeScript types
+│   ├── src/            # TypeScript types
 │   └── ...
 └── README.md
 ```
