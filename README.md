@@ -1,96 +1,167 @@
+const documentation = `
 # Talkative Tribe
 
-One of the key features of Talkative Tribe is the ability to create dedicated chat groups. This feature allows users to set up virtual spaces where they can gather with specific groups, teams, or communities to have focused discussions and collaborate effectively.
+## Overview
 
-## Contributing
-
-This is an individual project built within a span of two days.
-
-## Deployment
-
--   Backend is deployed on Render: [Deployed Link](https://talkative-tribe.onrender.com/)
--   Frontend is deployed on Netlify: [Deployed Link](https://cute-croissant-2a6b2d.netlify.app/)
-
-## Features
-
--   Real-time Application
--   User Sign In
--   User Sign Up
--   User Logout
--   Create Groups
--   User Authorization
--   Google OAuth
--   Delete Groups
--   Delete Messages
--   Email Verification
-
-## Before Logging In
-
-Before logging in, don't forget to verify your mail. You can do that by going to your Gmail account and looking for an email from Talkative Tribe. Open it and click on "Verify Email."
+Talkative Tribe is a real-time chat application designed to facilitate seamless communication among users. Built with modern web technologies, Talkative Tribe ensures a responsive, fast, and interactive user experience.
 
 ## Tech Stack
 
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-![passport](https://img.shields.io/badge/passport-%23000000?style=for-the-badge&logo=passport&logoColor=white)
-![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-![Nodemailer](https://img.shields.io/badge/Nodemailer-339933?style=for-the-badge&logo=nodemailer&logoColor=white)
-![Google OAuth](https://img.shields.io/badge/Google%20OAuth-%234285F4?style=for-the-badge&logo=google&logoColor=white)
-![Render](https://img.shields.io/badge/Render-%235167FF?style=for-the-badge&logo=Render&logoColor=white)
-![axios](https://img.shields.io/badge/axios-%2338a7d1?style=for-the-badge&logo=axios&logoColor=white)
-![googleapis](https://img.shields.io/badge/googleapis-%234285F4?style=for-the-badge&logo=google&logoColor=white)
+- **Frontend**:
+  - React.js
+  - TypeScript
+  - Shadcn
+  - TailwindCSS
+  - Recoil
+- **Backend**:
+  - Prisma
+  - MongoDB
+  - Socket.io
+  - Zod
+  - Node.js
+  - Express.js
 
-## Screenshots
+## Features
 
-SignUp Page
-![signup](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/00af7b9b-b020-41f9-969a-3d8ce69eb352)
+- Real-time messaging
+- User authentication and authorization
+- Group chats
+- Direct messages
+- Media sharing (images, videos)
+- Emojis and reactions
+- Read receipts
+- Online/offline status indicators
 
-SignIn Page
-![signin](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/736b0a49-60cd-46c4-861d-81d1a03ed7ab)
+## Installation
 
-DashBoard Page
-![group](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/8b600648-634d-4aa9-bf6e-34904657c299)
+### Prerequisites
 
-![goku side](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/faa20cd6-8694-4467-9a5b-637ae85b4089)
+Before you begin, ensure you have the following installed:
 
-![gokuchat](https://github.com/Abhi0049k/Talkative-Tribe/assets/112062354/59c6438a-9163-4290-a741-a5cfd3079cb4)
+- Node.js (v14 or higher)
+- npm (v6 or higher) or yarn (v1.22 or higher)
+- MongoDB (v4 or higher)
 
-## Run Locally
+### Steps
 
-Clone the project
+1. **Clone the repository**:
 
-```bash
-  git clone git@github.com:Abhi0049k/Group-Chat.git
+    ```sh
+    git clone https://github.com/your-username/talkative-tribe.git
+    cd talkative-tribe
+    ```
+
+2. **Install dependencies**:
+
+    Using npm:
+
+    ```sh
+    npm install
+    ```
+
+    Or using yarn:
+
+    ```sh
+    yarn install
+    ```
+
+3. **Set up environment variables**:
+
+    Create a `.env` file in the root directory of both the backend and frontend and add the following variables:
+
+    **Backend** `.env` file:
+
+    ```env
+    PORT=8998
+    DATABASE_URL="Paste your Database URL"
+    SALT_ROUNDS="Enter salt rounds"
+    JWT_SECRET_KEY="Enter secret key"
+    ```
+
+    **Frontend** `.env` file:
+
+    ```env
+    VITE_BACKEND_SERVER_URL="http://localhost:8998/"
+    ```
+
+    Alternatively, you can copy the \`.env.example\` file present in both the frontend and backend folders:
+
+    ```sh
+    cp backend/.env.example backend/.env
+    cp frontend/.env.example frontend/.env
+    ```
+
+4. **Run the application**:
+
+    Using npm:
+
+    ```sh
+    npm run dev
+    ```
+
+    Or using yarn:
+
+    ```sh
+    yarn dev
+    ```
+
+    The application will be available at \`http://localhost:3000\`.
+
+## Folder Structure
 
 ```
-
-Go to the backend directory
-
-```bash
-  cd backend
+talkative-tribe/
+├── backend/            # Backend source code
+│   ├── src/            # Backend source files
+│   ├── prisma/         # Prisma schema and migrations
+│   ├── .env.example    # Backend environment variables example
+│   └── ...
+├── frontend/           # Frontend source code
+│   ├── src/            # Frontend source files
+│   ├── .env.example    # Frontend environment variables example
+│   └── ...
+├── common/             # Common types and utilities
+│   ├── src/          # TypeScript types
+│   └── ...
+└── README.md
 ```
 
-Install dependencies
+## Usage
 
-```bash
-  npm install
-```
+### Authentication
 
-##
+Users can sign up and log in using their email and password. Authentication is handled via NextAuth.js.
 
-Before running the Backend server on your local System do setup the .env and gmail smtp host
+### Messaging
 
-##
+Users can create new chats, join existing ones, and send messages in real-time. Messages are stored in MongoDB and are instantly available to all participants.
 
-Start the server
+### Real-time Communication
 
-```bash
-  npm start
-```
-# Talkative-Tribe
+Real-time communication is handled using Socket.io, ensuring that messages and updates are delivered instantly to all connected clients.
+
+### State Management
+
+Recoil is used for efficient and scalable state management in the application, allowing for a responsive user interface.
+
+### Data Validation
+
+Zod is used for schema validation and ensures that the data being sent and received meets the expected structure, providing type safety and error handling.
+
+### Media Sharing
+
+Users can share images and videos within the chat. Uploaded media files are stored in a cloud storage service and are accessible directly in the chat interface.
+
+## Contributing
+
+We welcome contributions! Please follow these steps to contribute:
+
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`.
+3. Make your changes and commit them: `git commit -m 'Add some feature'`.
+4. Push to the branch: `git push origin feature/your-feature-name`.
+5. Open a pull request.
+
+## Contact
+
+For any questions or feedback, please reach out to us at [mangalamkumar2002@gmail.com]
