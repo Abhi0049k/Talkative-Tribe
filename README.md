@@ -1,4 +1,3 @@
-const documentation = `
 # Talkative Tribe
 
 ## Overview
@@ -47,7 +46,7 @@ Before you begin, ensure you have the following installed:
 1. **Clone the repository**:
 
     ```sh
-    git clone https://github.com/your-username/talkative-tribe.git
+    git clone https://github.com/Abhi0049k/talkative-tribe.git
     cd talkative-tribe
     ```
 
@@ -84,7 +83,7 @@ Before you begin, ensure you have the following installed:
     VITE_BACKEND_SERVER_URL="http://localhost:8998/"
     ```
 
-    Alternatively, you can copy the \`.env.example\` file present in both the frontend and backend folders:
+    Alternatively, you can copy the `.env.example` file present in both the frontend and backend folders:
 
     ```sh
     cp backend/.env.example backend/.env
@@ -105,7 +104,7 @@ Before you begin, ensure you have the following installed:
     yarn dev
     ```
 
-    The application will be available at \`http://localhost:3000\`.
+    The application will be available at `http://localhost:5173`.
 
 ## Folder Structure
 
@@ -130,7 +129,7 @@ talkative-tribe/
 
 ### Authentication
 
-Users can sign up and log in using their email and password. Authentication is handled via NextAuth.js.
+Users can sign up and log in using their email and password. Will soon be adding Google OAuth for authentication.
 
 ### Messaging
 
