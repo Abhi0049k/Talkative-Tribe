@@ -216,4 +216,4 @@ We welcome contributions! Please follow these steps to contribute:
 
 ## Contact
 
-For any questions or feedback, please reach out to us at [mangalamkumar2002@gmail.com]
+For any questions or feedback, please reach out to us at [mangalam0015k@gmail.com]
