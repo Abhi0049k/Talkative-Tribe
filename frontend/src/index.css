@@ -1,55 +1,88 @@
+/* Import bold, expressive font - MUST be first */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Neo-Brutalist Design System for Talkative Tribe */
+
 * {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.8rem;
+    /* Neo-Brutalist Light Theme - High Contrast */
+    --background: 60 100% 97%;
+    /* Warm off-white */
+    --foreground: 0 0% 0%;
+    /* Pure black */
+    --card: 60 100% 97%;
+    --card-foreground: 0 0% 0%;
+    --popover: 60 100% 97%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 0% 0%;
+    /* Black primary */
+    --primary-foreground: 60 100% 97%;
+    --secondary: 51 100% 50%;
+    /* Bold yellow accent */
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 51 100% 50%;
+    /* Yellow */
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 100% 50%;
+    /* Pure red */
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 0%;
+    /* Black borders */
+    --input: 0 0% 0%;
+    --ring: 51 100% 50%;
+    --radius: 0px;
+    /* Sharp corners - Neo-Brutalist */
+
+    /* Custom Neo-Brutalist variables */
+    --brutal-border: 3px solid hsl(0 0% 0%);
+    --brutal-shadow: 4px 4px 0px hsl(0 0% 0%);
+    --brutal-shadow-hover: 6px 6px 0px hsl(0 0% 0%);
+    --brutal-yellow: hsl(51 100% 50%);
+    --brutal-blue: hsl(220 100% 50%);
+    --brutal-pink: hsl(330 100% 60%);
+    --brutal-green: hsl(120 100% 35%);
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    /* Neo-Brutalist Dark Theme */
+    --background: 0 0% 5%;
+    /* Near black */
+    --foreground: 0 0% 100%;
+    /* Pure white */
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    /* White primary */
+    --primary-foreground: 0 0% 0%;
+    --secondary: 51 100% 50%;
+    /* Bold yellow */
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 51 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 100%;
+    /* White borders in dark mode */
+    --input: 0 0% 100%;
+    --ring: 51 100% 50%;
+
+    --brutal-border: 3px solid hsl(0 0% 100%);
+    --brutal-shadow: 4px 4px 0px hsl(0 0% 100%);
+    --brutal-shadow-hover: 6px 6px 0px hsl(0 0% 100%);
   }
 }
 
@@ -63,20 +96,119 @@
   }
 }
 
+/* Neo-Brutalist Component Styles */
+@layer components {
+
+  /* Brutal Button */
+  .brutal-btn {
+    @apply font-bold uppercase tracking-wide px-6 py-3;
+    border: var(--brutal-border);
+    box-shadow: var(--brutal-shadow);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+
+  .brutal-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--brutal-shadow-hover);
+  }
+
+  .brutal-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+
+  /* Brutal Card/Box */
+  .brutal-box {
+    border: var(--brutal-border);
+    box-shadow: var(--brutal-shadow);
+  }
+
+  /* Brutal Input */
+  .brutal-input {
+    @apply font-medium px-4 py-3 bg-background;
+    border: var(--brutal-border);
+  }
+
+  .brutal-input:focus {
+    outline: none;
+    box-shadow: var(--brutal-shadow);
+  }
+
+  /* Chat Bubble - Sender (Your messages) */
+  .brutal-bubble-sender {
+    @apply bg-black text-white font-medium px-4 py-3;
+    border: 3px solid hsl(var(--foreground));
+    box-shadow: 4px 4px 0px hsl(var(--secondary));
+  }
+
+  .dark .brutal-bubble-sender {
+    @apply bg-white text-black;
+    box-shadow: 4px 4px 0px hsl(var(--secondary));
+  }
+
+  /* Chat Bubble - Receiver */
+  .brutal-bubble-receiver {
+    @apply font-medium px-4 py-3;
+    background: hsl(var(--secondary));
+    color: hsl(0 0% 0%);
+    border: 3px solid hsl(var(--foreground));
+  }
+
+  /* Brutal Header */
+  .brutal-header {
+    @apply font-bold text-4xl md:text-5xl uppercase tracking-tight;
+  }
+
+  /* Brutal Sidebar Item */
+  .brutal-sidebar-item {
+    @apply font-semibold px-4 py-3 cursor-pointer;
+    border: var(--brutal-border);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+
+  .brutal-sidebar-item:hover {
+    background: hsl(var(--secondary));
+    color: hsl(0 0% 0%);
+    transform: translate(-2px, -2px);
+    box-shadow: var(--brutal-shadow);
+  }
+
+  /* Brutal Badge/Label */
+  .brutal-badge {
+    @apply font-bold text-xs uppercase px-3 py-1;
+    background: hsl(var(--secondary));
+    color: hsl(0 0% 0%);
+    border: 2px solid hsl(var(--foreground));
+  }
+}
+
+/* Scrollbar - Brutalist Style */
 ::-webkit-scrollbar {
-  width: 10px;
-  border-left: 1px;
+  width: 12px;
+  border-left: 3px solid hsl(var(--foreground));
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
-  border-radius: var(--radius);
+  background: hsl(var(--foreground));
+  border: none;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: hsl(var(--secondary));
+}
+
+/* Selection color */
+::selection {
+  background: hsl(var(--secondary));
+  color: hsl(0 0% 0%);
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 3px solid hsl(var(--secondary));
+  outline-offset: 2px;
 }

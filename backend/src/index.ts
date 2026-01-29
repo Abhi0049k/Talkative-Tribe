@@ -1,29 +1,37 @@
 import cors from "cors";
 import { config } from "dotenv";
 import http from "http";
-import cookieParser from "cookie-parser";
 import { userRouter } from "./routes/user.routes";
-// import cookiesMiddleware from "universal-cookie-express";
 import express, { Application, ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import SocketIOInstance from "./configs/socket";
-// import socket from "./configs/socket";
 config();
 
 const PORT: number = Number(process.env.PORT);
 const FRONTEND_SERVER_URL: string = process.env.FRONTEND_SERVER_URL || "";
 
+// Parse comma-separated origins for CORS (supports multiple origins for network testing)
+const allowedOrigins = FRONTEND_SERVER_URL.split(',').map(origin => origin.trim());
+
 const app: Application = express();
 const server = http.createServer(app);
-// socket(server);
 SocketIOInstance.getInstance(server);
 
-// app.use(cookiesMiddleware());
-app.use(cookieParser());
+// Verify DB Connection
+import { connectDB } from "./configs/prismaInstance";
+connectDB();
+
 app.use(cors({
     credentials: true,
-    origin: FRONTEND_SERVER_URL
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or Postman)
+        if (!origin) return callback(null, true);
+
+        // Relaxed CORS for development to allow mobile access
+        callback(null, true);
+    }
 }));
 app.use(express.json());
+
 
 app.get("/", (req: Request, res: Response) => {
     res.status(200).send({ message: "Hello World!!!" });

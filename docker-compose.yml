@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: talkative-mongo
+    restart: always
+    ports:
+      - "27017:27017" # Expose standard Mongo port to host
+    command: [ "--replSet", "rs0", "--bind_ip_all" ]
+    environment:
+      MONGO_INITDB_DATABASE: talkative_drive
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - talkative-network
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'localhost:27017' }] });" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+
+networks:
+  talkative-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local

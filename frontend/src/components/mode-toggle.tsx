@@ -14,21 +14,34 @@ export function ModeToggle() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
-                    <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                    <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <Button variant="outline" size="icon" className="relative h-8 w-8 border-[2px]">
+                    <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                    <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                     <span className="sr-only">Toggle theme</span>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setTheme("light")}>
-                    Light
+            <DropdownMenuContent
+                align="end"
+                className="border-[2px] border-foreground bg-background rounded-none min-w-[100px]"
+                style={{ boxShadow: '3px 3px 0px hsl(var(--foreground))' }}
+            >
+                <DropdownMenuItem
+                    onClick={() => setTheme("light")}
+                    className="font-semibold uppercase text-xs cursor-pointer hover:bg-[hsl(var(--secondary))] hover:text-black rounded-none py-2"
+                >
+                    LIGHT
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("dark")}>
-                    Dark
+                <DropdownMenuItem
+                    onClick={() => setTheme("dark")}
+                    className="font-semibold uppercase text-xs cursor-pointer hover:bg-[hsl(var(--secondary))] hover:text-black rounded-none py-2"
+                >
+                    DARK
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")}>
-                    System
+                <DropdownMenuItem
+                    onClick={() => setTheme("system")}
+                    className="font-semibold uppercase text-xs cursor-pointer hover:bg-[hsl(var(--secondary))] hover:text-black rounded-none py-2"
+                >
+                    SYSTEM
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

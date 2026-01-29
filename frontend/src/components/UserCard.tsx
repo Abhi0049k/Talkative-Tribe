@@ -12,46 +12,102 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
 } from "./ui/dropdown-menu";
+import { useRecoilValue } from "recoil";
+import { handednessState } from "@/store/atom";
 
 export interface activePreviousUserI {
     name: string;
     id: string;
-    handleClick: (id: string) => void;
+    handleClick: (id: string, name?: string) => void;
+    handleDelete?: (id: string) => void;
     options: boolean;
+    isAI?: boolean;
 }
 
-const UserCard: FC<activePreviousUserI> = ({ name, id, handleClick, options }) => {
-    const { selected, handleChat } = useUserCard(id, handleClick, name)
+const UserCard: FC<activePreviousUserI> = ({ name, id, handleClick, handleDelete, options, isAI = false }) => {
+    const { selected, handleChat } = useUserCard(id, handleClick, name);
+    const handedness = useRecoilValue(handednessState);
+    const isLeftHanded = handedness === 'left';
+
+    // Determine background and text colors based on state
+    // Reverted to original consistent styling
+    const getCardStyles = () => {
+        if (selected) {
+            // Selected state - yellow background with black text (same for all)
+            return 'bg-[hsl(var(--secondary))] text-black';
+        }
+        if (isAI) {
+            // AI card unselected - black background with white text
+            return 'bg-foreground text-background hover:bg-foreground/90';
+        }
+        // Regular card unselected
+        return 'bg-background text-foreground hover:bg-[hsl(var(--muted))]';
+    };
+
+    // Selected translation
+    const getSelectedTranslation = () => {
+        if (!selected) return '';
+        return isLeftHanded ? 'sm:translate-x-2 -translate-x-2' : 'translate-x-2';
+    };
 
     return (
-        <div data-id={id} className={`cursor-pointer border max-h-14 p-4 flex text-wrap justify-between ${selected ? 'bg-primary-foreground' : ''} items-center rounded-md`}>
-            <p className="px-4" onClick={handleChat}>
+        <div
+            data-id={id}
+            className={`
+                cursor-pointer border-b-[3px] border-foreground p-4 flex justify-between items-center
+                transition-all duration-100
+                ${getCardStyles()}
+                ${getSelectedTranslation()}
+                ${isLeftHanded ? 'sm:flex-row flex-row-reverse' : 'flex-row'}
+            `}
+            style={{
+                // Stronger Left Indicator (12px) for clear visibility
+                boxShadow: selected
+                    ? isLeftHanded
+                        ? 'inset -12px 0 0 hsl(var(--foreground))'
+                        : 'inset 12px 0 0 hsl(var(--foreground))'
+                    : 'none'
+            }}
+        >
+            <p
+                className={`${selected ? 'font-black' : 'font-semibold'} tracking-wide text-sm flex-1 ${isLeftHanded ? 'sm:text-left text-right' : 'text-left'}`}
+                onClick={handleChat}
+            >
                 {name}
             </p>
-            {
-                options &&
+            {options && (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="hover:bg-[hsl(var(--muted))] py-2 px-1 rounded outline-none border-none">
-                            <FiMoreVertical className="text-lg" />
+                        <button className={`p-2 border-[2px] border-foreground transition-colors ${selected ? 'bg-black text-white hover:bg-black/80' : 'bg-background hover:bg-[hsl(var(--secondary))]'}`}>
+                            <FiMoreVertical className={`text-lg ${selected ? 'text-white' : 'text-foreground'}`} />
                         </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                        <DropdownMenuItem>
+                    <DropdownMenuContent
+                        className="w-48 border-[3px] border-foreground bg-background rounded-none"
+                        style={{ boxShadow: '4px 4px 0px hsl(var(--foreground))' }}
+                        align={isLeftHanded ? "start" : "end"}
+                    >
+                        <DropdownMenuItem className="font-semibold uppercase text-sm cursor-pointer hover:bg-[hsl(var(--secondary))] hover:text-black rounded-none">
                             <LucideVideo className="mr-2 h-4 w-4" />
-                            <span>Video Call</span>
+                            <span>VIDEO CALL</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem className="font-semibold uppercase text-sm cursor-pointer hover:bg-[hsl(var(--secondary))] hover:text-black rounded-none">
                             <LucideMic className="mr-2 h-4 w-4" />
-                            <span>Voice Call</span>
+                            <span>VOICE CALL</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete && handleDelete(id);
+                            }}
+                            className="font-semibold uppercase text-sm cursor-pointer hover:bg-[hsl(var(--destructive))] hover:text-white rounded-none"
+                        >
                             <LucideTrash2 className="mr-2 h-4 w-4" />
-                            <span>Delete</span>
+                            <span>DELETE</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            }
+            )}
         </div>
     );
 }

@@ -22,6 +22,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        'sans': ['Space Grotesk', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -58,9 +61,20 @@ module.exports = {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "0px", // Neo-Brutalist: no rounded corners
+        md: "0px",
+        sm: "0px",
+        DEFAULT: "0px",
+      },
+      borderWidth: {
+        '3': '3px',
+        '4': '4px',
+      },
+      boxShadow: {
+        'brutal': '4px 4px 0px hsl(var(--foreground))',
+        'brutal-sm': '2px 2px 0px hsl(var(--foreground))',
+        'brutal-lg': '6px 6px 0px hsl(var(--foreground))',
+        'brutal-yellow': '4px 4px 0px hsl(51 100% 50%)',
       },
       keyframes: {
         "accordion-down": {
@@ -76,9 +90,6 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      boxShadow: {
-        input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25, 28, 33, 0.02), 0px 0px 0px 1px rgba(25, 28, 33, 0.08)`,
-      }
     },
   },
   plugins: [require("tailwindcss-animate"), addVariablesForColors],

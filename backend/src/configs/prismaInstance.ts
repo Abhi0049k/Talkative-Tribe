@@ -11,17 +11,20 @@ class PrismaInstance {
         return PrismaInstance.instance;
     }
 
-    connectToDatabase() {
+    // Changing this to a static method so we can call it without the wrapper instance
+    static connectToDatabase() {
+        if (!PrismaInstance.instance) new PrismaInstance();
         PrismaInstance.instance.$connect()
             .then(() => {
-                console.log("connection with the Database established");
+                console.log("Connection with the Database established successfully");
             }).catch((err) => {
-                console.log("Something went wrong!!!");
+                console.log("Error: Something went wrong with Database connection!!!");
                 console.log(err);
             })
     }
 }
 
 const prisma: PrismaClient = PrismaInstance.getInstance();
+export const connectDB = PrismaInstance.connectToDatabase;
 
 export default prisma;

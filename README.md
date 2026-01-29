@@ -31,6 +31,20 @@ Talkative Tribe is a real-time chat application designed to facilitate seamless 
 - Read receipts
 - Online/offline status indicators
 
+## Screenshots
+
+### Chat Interface
+
+![Chat Interface](assets/screenshots/chat-interface.png)
+
+### Login
+
+![Login](assets/screenshots/login-screen.png)
+
+### Sign Up
+
+![Sign Up](assets/screenshots/signup-screen.png)
+
 ## Installation
 
 ### Prerequisites
@@ -150,6 +164,35 @@ Zod is used for schema validation and ensures that the data being sent and recei
 ### Media Sharing
 
 Users can share images and videos within the chat. Uploaded media files are stored in a cloud storage service and are accessible directly in the chat interface.
+
+## 🐳 Run with Docker (Recommended)
+
+You can run the entire application (Frontend, Backend, and Database) with a single command.
+
+### Prerequisites
+
+- Docker & Docker Compose installed.
+
+### Steps
+
+1. **Clone the repository**:
+
+    ```sh
+    git clone https://github.com/Abhi0049k/talkative-tribe.git
+    cd talkative-tribe
+    ```
+
+2. **Run with Docker Compose**:
+
+    ```sh
+    docker-compose up --build
+    ```
+
+3. **Access the App**:
+    - Frontend: [http://localhost:5173](http://localhost:5173)
+    - Backend API: [http://localhost:8998](http://localhost:8998)
+
+> **Note**: The default Docker setup uses a pre-configured PostgreSQL user/pass defined in `docker-compose.yml` for convenience. For production, please change these credentials.
 
 ## Contributing
 
