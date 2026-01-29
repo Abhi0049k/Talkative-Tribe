@@ -78,7 +78,15 @@ Before you begin, ensure you have the following installed:
     yarn install
     ```
 
-3. **Set up environment variables**:
+3. **Start the Database**:
+
+    If you don't have MongoDB installed locally, you can run it via Docker (it includes the necessary replica set configuration):
+
+    ```sh
+    docker-compose up -d mongodb
+    ```
+
+4. **Set up environment variables**:
 
     Create a `.env` file in the root directory of both the backend and frontend and add the following variables:
 
@@ -86,10 +94,12 @@ Before you begin, ensure you have the following installed:
 
     ```env
     PORT=8998
-    DATABASE_URL="Paste your Database URL"
+    DATABASE_URL="mongodb://127.0.0.1:27017/talkative-tribe?directConnection=true"
     SALT_ROUNDS="Enter salt rounds"
     JWT_SECRET_KEY="Enter secret key"
     ```
+
+    Note: If using Docker for DB, use `mongodb://localhost:27017/talkative_drive?directConnection=true&replicaSet=rs0`.
 
     **Frontend** `.env` file:
 
@@ -104,7 +114,7 @@ Before you begin, ensure you have the following installed:
     cp frontend/.env.example frontend/.env
     ```
 
-4. **Run the application**:
+5. **Run the application**:
 
     Using npm:
 
