@@ -20,10 +20,96 @@ model User {
   email    String    @unique
   password String
   image    String?
+  // ... existing relations ...
   Room     Room[]    @relation("Creator")
   room     Room[]    @relation("Participant")
   Message  Message[] @relation("Sender")
   message  Message[] @relation("Receiver")
+  
+  // Community Relations
+  createdCommunities Community[] @relation("CommunityCreator")
+  joinedCommunities  Community[] @relation("CommunityMembers", fields: [joinedCommunityIds], references: [id])
+  joinedCommunityIds String[]    @db.ObjectId
+  
+  // Pending Requests (Request-Only Communities)
+  pendingCommunities Community[] @relation("CommunityPending", fields: [pendingCommunityIds], references: [id])
+  pendingCommunityIds String[]   @db.ObjectId
+
+  // ... rest ...
+  communityMessages  CommunityMessage[]
+  
+  // Call Relations
+  initiatedCalls     Call[]      @relation("CallInitiator")
+  receivedCalls      Call[]      @relation("CallReceiver")
+}
+
+model Community {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  description String?
+  creatorId   String   @db.ObjectId
+  creator     User     @relation("CommunityCreator", fields: [creatorId], references: [id])
+  
+  // Access Control
+  accessType  String   @default("OPEN") // "OPEN" | "REQUEST_ONLY"
+  
+  // Anonymity Settings
+  allowAnonymousPosts    Boolean @default(false)
+  allowAnonymousMessages Boolean @default(false)
+
+  // Membership
+  members     User[]   @relation("CommunityMembers", fields: [memberIds], references: [id])
+  memberIds   String[] @db.ObjectId
+  
+  // Pending Requests
+  pendingMembers    User[]   @relation("CommunityPending", fields: [pendingMemberIds], references: [id])
+  pendingMemberIds  String[] @db.ObjectId
+
+  messages    CommunityMessage[]
+  calls       Call[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CommunityMessage {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  message     String
+  img         String?
+  senderId    String    @db.ObjectId
+  sender      User      @relation(fields: [senderId], references: [id])
+  communityId String    @db.ObjectId
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  
+  // Privacy
+  isAnonymous Boolean   @default(false)
+
+  // New fields for Posts
+  title       String?
+  type        String    @default("MESSAGE") // "MESSAGE" or "POST"
+  media       String[]  @default([])
+  
+  // Interactions
+  likes       Like[]
+
+  // References
+  repostId    String?   @db.ObjectId
+  repost      CommunityMessage? @relation("Reposts", fields: [repostId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  repostedBy  CommunityMessage[] @relation("Reposts")
+
+  replyToId   String?   @db.ObjectId
+  replyTo     CommunityMessage? @relation("Replies", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  repliedBy   CommunityMessage[] @relation("Replies")
+}
+
+model Like {
+  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String            @db.ObjectId
+  communityMessageId String?           @db.ObjectId
+  communityMessage  CommunityMessage? @relation(fields: [communityMessageId], references: [id], onDelete: Cascade)
+  createdAt         DateTime          @default(now())
+
+  @@unique([userId, communityMessageId])
 }
 
 model Message {
@@ -47,4 +133,19 @@ model Room {
   participantId String    @db.ObjectId
   participant   User      @relation(name: "Participant", fields: [participantId], references: [id])
   Message       Message[] @relation("Room")
+}
+
+model Call {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  communityId String?   @db.ObjectId
+  community   Community? @relation(fields: [communityId], references: [id])
+  callerId    String    @db.ObjectId
+  caller      User      @relation(name: "CallInitiator", fields: [callerId], references: [id])
+  receiverId  String?   @db.ObjectId
+  receiver    User?     @relation(name: "CallReceiver", fields: [receiverId], references: [id])
+  startedAt   DateTime  @default(now())
+  endedAt     DateTime?
+  type        String    // "voice" | "video"
+  status      String    @default("ONGOING") // "ONGOING", "ENDED", "REJECTED"
+  participantCount Int  @default(0)
 }

@@ -15,12 +15,20 @@ export interface chatI {
     msgId: string;
     roomId: string;
     isAIResponse?: boolean;
+    isCommunity?: boolean;
+    senderName?: string;
+    senderImage?: string;
+    isAnonymous?: boolean;
 }
 
-const Chat: FC<chatI> = ({ msg, datetime, yours, msgId, senderId, socket, roomId, isAIResponse = false }) => {
+const Chat: FC<chatI> = ({ msg, datetime, yours, msgId, senderId, socket, roomId, isAIResponse = false, isCommunity = false, senderName, senderImage, isAnonymous }) => {
     const handleDelete = useCallback(() => {
-        socket.emit("deleteMessage", { msgId, senderId, roomId });
-    }, [msgId, senderId, roomId, socket]);
+        if (isCommunity) {
+            socket.emit("deleteCommunityMessage", { msgId, communityId: roomId });
+        } else {
+            socket.emit("deleteMessage", { msgId, senderId, roomId });
+        }
+    }, [msgId, senderId, roomId, socket, isCommunity]);
 
     // Detect if message contains rich content (markdown, code, etc.)
     const hasRichContent = useMemo(() => {
@@ -55,6 +63,15 @@ const Chat: FC<chatI> = ({ msg, datetime, yours, msgId, senderId, socket, roomId
                     <div className="px-4 pt-2">
                         <span className="text-[10px] font-bold uppercase tracking-wide bg-black text-white px-1.5 py-0.5">
                             AI
+                        </span>
+                    </div>
+                )}
+
+                {/* Sender Name for Community Messages (received) */}
+                {isCommunity && !yours && (
+                    <div className="px-4 pt-1 mb-1">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block leading-none">
+                            {isAnonymous ? "Anonymous" : (senderName || "Member")}
                         </span>
                     </div>
                 )}

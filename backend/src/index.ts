@@ -4,13 +4,12 @@ import http from "http";
 import { userRouter } from "./routes/user.routes";
 import express, { Application, ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import SocketIOInstance from "./configs/socket";
+import { uploadRouter } from "./routes/upload.routes";
+import path from "path";
 config();
 
 const PORT: number = Number(process.env.PORT);
-const FRONTEND_SERVER_URL: string = process.env.FRONTEND_SERVER_URL || "";
-
-// Parse comma-separated origins for CORS (supports multiple origins for network testing)
-const allowedOrigins = FRONTEND_SERVER_URL.split(',').map(origin => origin.trim());
+// CORS origin parsing removed - using universal access.
 
 const app: Application = express();
 const server = http.createServer(app);
@@ -23,13 +22,11 @@ connectDB();
 app.use(cors({
     credentials: true,
     origin: (origin, callback) => {
-        // Allow requests with no origin (like mobile apps or Postman)
-        if (!origin) return callback(null, true);
-
-        // Relaxed CORS for development to allow mobile access
+        // Allow all origins (universal access)
         callback(null, true);
     }
 }));
+
 app.use(express.json());
 
 
@@ -38,6 +35,8 @@ app.get("/", (req: Request, res: Response) => {
 })
 
 app.use("/user", userRouter);
+app.use("/upload", uploadRouter);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     next({ status: 404, message: "Page not found" });

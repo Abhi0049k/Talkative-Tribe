@@ -22,9 +22,11 @@ export interface activePreviousUserI {
     handleDelete?: (id: string) => void;
     options: boolean;
     isAI?: boolean;
+    isCommunity?: boolean;
+    isOwner?: boolean;
 }
 
-const UserCard: FC<activePreviousUserI> = ({ name, id, handleClick, handleDelete, options, isAI = false }) => {
+const UserCard: FC<activePreviousUserI> = ({ name, id, handleClick, handleDelete, options, isAI = false, isCommunity = false, isOwner = false }) => {
     const { selected, handleChat } = useUserCard(id, handleClick, name);
     const handedness = useRecoilValue(handednessState);
     const isLeftHanded = handedness === 'left';
@@ -75,7 +77,7 @@ const UserCard: FC<activePreviousUserI> = ({ name, id, handleClick, handleDelete
             >
                 {name}
             </p>
-            {options && (
+            {(options || (isCommunity && isOwner)) && (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <button className={`p-2 border-[2px] border-foreground transition-colors ${selected ? 'bg-black text-white hover:bg-black/80' : 'bg-background hover:bg-[hsl(var(--secondary))]'}`}>
@@ -87,24 +89,65 @@ const UserCard: FC<activePreviousUserI> = ({ name, id, handleClick, handleDelete
                         style={{ boxShadow: '4px 4px 0px hsl(var(--foreground))' }}
                         align={isLeftHanded ? "start" : "end"}
                     >
-                        <DropdownMenuItem className="font-semibold uppercase text-sm cursor-pointer hover:bg-[hsl(var(--secondary))] hover:text-black rounded-none">
-                            <LucideVideo className="mr-2 h-4 w-4" />
-                            <span>VIDEO CALL</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="font-semibold uppercase text-sm cursor-pointer hover:bg-[hsl(var(--secondary))] hover:text-black rounded-none">
-                            <LucideMic className="mr-2 h-4 w-4" />
-                            <span>VOICE CALL</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                handleDelete && handleDelete(id);
-                            }}
-                            className="font-semibold uppercase text-sm cursor-pointer hover:bg-[hsl(var(--destructive))] hover:text-white rounded-none"
-                        >
-                            <LucideTrash2 className="mr-2 h-4 w-4" />
-                            <span>DELETE</span>
-                        </DropdownMenuItem>
+                        {isCommunity && isOwner ? (
+                            <DropdownMenuItem
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete && handleDelete(id);
+                                }}
+                                className="font-semibold uppercase text-sm cursor-pointer hover:bg-red-600 hover:text-white rounded-none text-red-600"
+                            >
+                                <LucideTrash2 className="mr-2 h-4 w-4" />
+                                <span>DELETE COMMUNITY</span>
+                            </DropdownMenuItem>
+                        ) : (
+                            <>
+                                <DropdownMenuItem 
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleClick(id, name);
+                                        // Trigger video call after a short delay to allow chat to open
+                                        setTimeout(() => {
+                                            const event = new CustomEvent('triggerCall', { 
+                                                detail: { type: 'video', recipientId: id, recipientName: name } 
+                                            });
+                                            window.dispatchEvent(event);
+                                        }, 100);
+                                    }}
+                                    className="font-semibold uppercase text-sm cursor-pointer hover:bg-[hsl(var(--secondary))] hover:text-black rounded-none"
+                                >
+                                    <LucideVideo className="mr-2 h-4 w-4" />
+                                    <span>VIDEO CALL</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem 
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleClick(id, name);
+                                        // Trigger voice call after a short delay to allow chat to open
+                                        setTimeout(() => {
+                                            const event = new CustomEvent('triggerCall', { 
+                                                detail: { type: 'voice', recipientId: id, recipientName: name } 
+                                            });
+                                            window.dispatchEvent(event);
+                                        }, 100);
+                                    }}
+                                    className="font-semibold uppercase text-sm cursor-pointer hover:bg-[hsl(var(--secondary))] hover:text-black rounded-none"
+                                >
+                                    <LucideMic className="mr-2 h-4 w-4" />
+                                    <span>VOICE CALL</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDelete && handleDelete(id);
+                                    }}
+                                    className="font-semibold uppercase text-sm cursor-pointer hover:bg-[hsl(var(--destructive))] hover:text-white rounded-none"
+                                >
+                                    <LucideTrash2 className="mr-2 h-4 w-4" />
+                                    <span>DELETE</span>
+                                </DropdownMenuItem>
+                            </>
+                        )}
                     </DropdownMenuContent>
                 </DropdownMenu>
             )}

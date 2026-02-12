@@ -4,7 +4,7 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { tokenState } from "@/store/atom";
 
-const BACKEND_SERVER_URL = import.meta.env.VITE_BACKEND_SERVER_URL;
+import { BACKEND_SERVER_URL } from "@/configs/api";
 
 export const useNavbar = () => {
     // const token = useRecoilValue(tokenState);

@@ -24,12 +24,15 @@ Talkative Tribe is a real-time chat application designed to facilitate seamless 
 
 - Real-time messaging
 - User authentication and authorization
-- Group chats
+- Group chats & Community Management
+- **Anonymous Posting**: Post anonymously in communities (if allowed).
+- **Community Access Control**: "Request to Join" workflow for private communities.
 - Direct messages
 - Media sharing (images, videos)
 - Emojis and reactions
 - Read receipts
 - Online/offline status indicators
+- **Neo-Brutalist Design**: Distinctive, high-contrast UI style.
 
 ## Screenshots
 

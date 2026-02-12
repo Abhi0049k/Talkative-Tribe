@@ -1,4 +1,4 @@
-import { activeChatUserName, currChat, tokenState } from "@/store/atom";
+import { activeChatUserName, currChat, tokenState, joinedCommunitiesState } from "@/store/atom";
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Socket } from "socket.io-client";
@@ -6,7 +6,9 @@ import axios, { AxiosResponse } from "axios";
 import { activePreviousUserI } from "@/components/UserCard";
 import { roomsI } from "@mangalam0049k/common";
 
-const BACKEND_SERVER_URL = import.meta.env.VITE_BACKEND_SERVER_URL;
+import { BACKEND_SERVER_URL } from "@/configs/api";
+import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
 
 export const useHomeLeft = (socket: Socket) => {
     const [name, setName] = useState<string>('');
@@ -16,6 +18,10 @@ export const useHomeLeft = (socket: Socket) => {
     const [allPrevPrivateRooms, setAllPrevPrivateRooms] = useState<Array<roomsI>>([]);
     const [cChat, setCChat] = useRecoilState(currChat);
     const token = useRecoilValue(tokenState);
+
+    // Delete modal state
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [communityToDelete, setCommunityToDelete] = useState<{ id: string; name: string } | null>(null);
 
     const handleChangeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
@@ -101,6 +107,23 @@ export const useHomeLeft = (socket: Socket) => {
                 setAllPrevPrivateRooms(prev => prev.filter(r => r.room !== roomId));
                 getAllPrevPrivateRooms(); // Refresh to be sure
             })
+
+            socket.on("member_left", ({ communityId, userId: leftUserId }) => {
+                let currentId = "";
+                if (token) {
+                    try {
+                        const decoded: any = jwtDecode(token);
+                        currentId = decoded.id;
+                    } catch (e) {
+                        // ignore
+                    }
+                }
+
+                if (currentId === leftUserId) {
+                    setJoinedCommunities(prev => prev.filter(c => c.id !== communityId));
+                    setCChat(prev => prev === communityId ? "" : prev);
+                }
+            });
         }
         return () => {
             if (socket) {
@@ -109,9 +132,11 @@ export const useHomeLeft = (socket: Socket) => {
                 socket.off("joinRoom");
                 socket.off("joinedRoom");
                 socket.off("roomDeleted");
+                socket.off("member_left");
             }
         }
-    }, [socket])
+    }, [socket, token])
+
 
     useEffect(() => {
         getAllPrevPrivateRooms().catch(err => console.log(err));
@@ -146,14 +171,112 @@ export const useHomeLeft = (socket: Socket) => {
         }
     }, [cChat, allPrevPrivateRooms, userId, setActiveUserName]);
 
+
+    // Communities Logic
+    const [joinedCommunities, setJoinedCommunities] = useRecoilState(joinedCommunitiesState);
+
+    const getJoinedCommunities = useCallback(async () => {
+        try {
+            const res = await axios.get(`${BACKEND_SERVER_URL}user/communities`, {
+                headers: { Authorization: token }
+            });
+            setJoinedCommunities(res.data.communities);
+        } catch (err) {
+            console.log(err);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        if (token) getJoinedCommunities();
+    }, [token, getJoinedCommunities]);
+
+    const handleCommunityClick = useCallback((communityId: string, name: string) => {
+        // Set current chat to community ID
+        setCChat(communityId);
+        setActiveUserName(name); // Or store community name separately if needed
+
+        // Join the socket room
+        socket?.emit("joinCommunityRoom", { communityId });
+
+        // Fetch messages (handled by side effect in HomeRight usually, but we can trigger it here if needed)
+        socket?.emit("getCommunityMessages", communityId);
+    }, [socket, setCChat, setActiveUserName]);
+
+    const handleDeleteCommunity = useCallback(async (communityId: string) => {
+        // Find community name for modal
+        const community = joinedCommunities.find(c => c.id === communityId);
+        if (!community) return;
+
+        // Open modal instead of window.confirm
+        setCommunityToDelete({ id: communityId, name: community.name });
+        setIsDeleteModalOpen(true);
+    }, [joinedCommunities]);
+
+    const confirmDeleteCommunity = useCallback(async () => {
+        if (!communityToDelete) return;
+
+        const { id: communityId, name: communityName } = communityToDelete;
+
+        try {
+            await axios.delete(`${BACKEND_SERVER_URL}user/community/${communityId}`, {
+                headers: { Authorization: token }
+            });
+
+            toast.success(`Community "${communityName}" deleted successfully`);
+
+            // Optimistic update
+            setJoinedCommunities(prev => prev.filter(c => c.id !== communityId));
+
+            // Clear active chat if deleted community was active
+            if (cChat === communityId) {
+                setCChat("");
+            }
+
+            // Close modal
+            setIsDeleteModalOpen(false);
+            setCommunityToDelete(null);
+        } catch (error: any) {
+            console.error("Failed to delete community", error);
+            const errorMessage = error.response?.data?.message || "Failed to delete community. Please try again.";
+            toast.error(errorMessage);
+        }
+    }, [communityToDelete, token, cChat, setCChat]);
+
+    const cancelDeleteCommunity = useCallback(() => {
+        setIsDeleteModalOpen(false);
+        setCommunityToDelete(null);
+    }, []);
+
+    // Get current user ID from token
+    const getCurrentUserId = useCallback(() => {
+        if (!token) return null;
+        try {
+            const decoded: any = jwtDecode(token);
+            return decoded.id;
+        } catch (e) {
+            console.error("Invalid token", e);
+            return null;
+        }
+    }, [token]);
+
     return {
         name,
         searchList: filteredSearchList,
         userId,
         allPrevPrivateRooms: displayRooms,
+        joinedCommunities,
         handleChangeName,
         handleUserClick,
         handleChatWithAI,
-        handleDeleteRoom
+        handleDeleteRoom,
+        refreshCommunities: getJoinedCommunities,
+        handleCommunityClick,
+        handleDeleteCommunity,
+        getCurrentUserId,
+        // Delete modal state and handlers
+        isDeleteModalOpen,
+        communityToDelete,
+        confirmDeleteCommunity,
+        cancelDeleteCommunity
     }
 }

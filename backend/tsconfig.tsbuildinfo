@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/configs/prismainstance.ts","./src/configs/socket.ts","./src/configs/ai/agent.ts","./src/configs/ai/controllers.ts","./src/routes/upload.routes.ts","./src/routes/user.routes.ts"],"version":"5.9.2"}

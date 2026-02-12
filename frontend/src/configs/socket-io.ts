@@ -1,6 +1,6 @@
 import { io, Socket } from "socket.io-client";
 
-const BACKEND_SERVER_URL = import.meta.env.VITE_BACKEND_SERVER_URL as string;
+import { BACKEND_SERVER_URL } from "@/configs/api";
 
 let socket: Socket | null = null;
 

@@ -3,6 +3,20 @@ import { atom, AtomEffect } from "recoil";
 // Handedness type for mobile UI
 export type Handedness = 'right' | 'left';
 
+// Inter-component Call Trigger
+export interface CallTriggerI {
+    recipientId: string;
+    recipientName: string;
+    type: 'voice' | 'video';
+    isDirect: boolean;
+    action?: 'start' | 'join';
+}
+
+export const triggerCallState = atom<CallTriggerI | null>({
+    key: "triggerCallState",
+    default: null
+});
+
 // LocalStorage persistence effect
 const localStorageEffect = <T>(key: string): AtomEffect<T> => ({ setSelf, onSet }) => {
     if (typeof window !== 'undefined') {
@@ -53,4 +67,24 @@ export const handednessState = atom<Handedness>({
     key: "handednessState",
     default: 'right',
     effects: [localStorageEffect<Handedness>('talkative-tribe-handedness')]
+})
+
+export const joinedCommunitiesState = atom<any[]>({
+    key: "joinedCommunitiesState",
+    default: []
+})
+
+// Community Call Invitation State
+export interface CommunityCallInviteI {
+    communityId: string;
+    communityName: string;
+    callerId: string;
+    callerName: string;
+    callType: 'voice' | 'video';
+    timestamp?: string;
+}
+
+export const communityCallInviteState = atom<CommunityCallInviteI | null>({
+    key: "communityCallInviteState",
+    default: null
 })

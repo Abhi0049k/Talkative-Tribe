@@ -5,7 +5,7 @@ import React, { useCallback, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from "recoil";
 
-const BACKEND_SERVER_URL = import.meta.env.VITE_BACKEND_SERVER_URL;
+import { BACKEND_SERVER_URL } from "@/configs/api";
 
 interface LoginResponse {
     success: boolean;
